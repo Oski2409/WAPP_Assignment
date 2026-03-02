@@ -4,6 +4,43 @@
 
 <h2 class="text-warning mb-4">Manage Quizzes</h2>
 
+<div class="card bg-dark text-white p-4 mb-4 shadow">
+    <h4>Create Quiz</h4>
+
+    <div class="mb-3">
+        <label>Select Tutorial</label>
+        <asp:DropDownList ID="ddlTutorials"
+            runat="server"
+            CssClass="form-control custom-input" />
+    </div>
+
+    <div class="mb-3">
+        <label>Quiz Title</label>
+        <asp:TextBox ID="txtQuizTitle"
+            runat="server"
+            CssClass="form-control custom-input" />
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <asp:TextBox ID="txtQuizDesc"
+            runat="server"
+            CssClass="form-control custom-input"
+            TextMode="MultiLine" Rows="3" />
+    </div>
+
+    <asp:Button runat="server"
+        Text="Create Quiz"
+        CssClass="btn btn-warning mt-3" />
+</div>
+
+    <div class="mb-3">
+        <label>Select Quiz</label>
+        <asp:DropDownList ID="ddlQuizzes"
+            runat="server"
+            CssClass="form-control custom-input" />
+    </div>
+
 <!-- Add New Quiz Question -->
 <div class="card bg-dark text-white p-4 mb-4 shadow">
     <h4>Add New Quiz Question</h4>
