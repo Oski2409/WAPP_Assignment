@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WAPP_Assignment.Pages
 {
@@ -11,16 +13,35 @@ namespace WAPP_Assignment.Pages
     {
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            // Later this will validate against database
+            string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
 
-            if (txtEmail.Text == "test@test.com" && txtPassword.Text == "1234")
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                Session["UserID"] = "1";
-                Response.Redirect("Tutorials.aspx");
-            }
-            else
-            {
-                lblMessage.Text = "Invalid email or password.";
+                conn.Open();
+
+                string query = @"SELECT UserID, Role 
+                         FROM Users 
+                         WHERE Email = @Email 
+                         AND PasswordHash = @Password 
+                         AND AccountStatus = 'Active'";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Session["UserID"] = reader["UserID"].ToString();
+                    Session["Role"] = reader["Role"].ToString();
+
+                    Response.Redirect("Tutorials.aspx");
+                }
+                else
+                {
+                    lblMessage.Text = "Invalid email or password.";
+                }
             }
         }
     }
