@@ -12,7 +12,7 @@ IF OBJECT_ID('QuizAttempts','U') IS NOT NULL DROP TABLE QuizAttempts;
 IF OBJECT_ID('Questions','U') IS NOT NULL DROP TABLE Questions;
 IF OBJECT_ID('Quizzes','U') IS NOT NULL DROP TABLE Quizzes;
 IF OBJECT_ID('Tutorials','U') IS NOT NULL DROP TABLE Tutorials;
-IF OBJECT_ID('Topics','U') IS NOT NULL DROP TABLE Topics;
+IF OBJECT_ID('Categories','U') IS NOT NULL DROP TABLE Categories;
 IF OBJECT_ID('Users','U') IS NOT NULL DROP TABLE Users;
 
 -- ============================================
@@ -38,15 +38,15 @@ CREATE TABLE [Users] (
 );
 
 -- ============================================
--- TOPICS
+-- Categories
 -- ============================================
 
-CREATE TABLE [Topics] (
-    [TopicID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    [TopicName] NVARCHAR(100) NOT NULL,
-    [TopicDescription] NVARCHAR(255),
+CREATE TABLE [Categories] (
+    [CategoryID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    [CategoryName] NVARCHAR(100) NOT NULL,
+    [CategoryDescription] NVARCHAR(255),
 
-    CONSTRAINT UQ_Topics_TopicName UNIQUE (TopicName)
+    CONSTRAINT UQ_Categories_CategoryName UNIQUE (CategoryName)
 );
 
 -- ============================================
@@ -60,13 +60,13 @@ CREATE TABLE [Tutorials] (
     [ContentText] NVARCHAR(MAX) NOT NULL,
     [VideoURL] NVARCHAR(255),
     [ImageURL] NVARCHAR(255),
-    [TopicID] INT NOT NULL,
+    [CategoryID] INT NOT NULL,
     [CreatedBy] INT NOT NULL,
     [CreatedDate] DATETIME NOT NULL DEFAULT GETDATE(),
 
-    CONSTRAINT FK_Tutorials_Topics
-        FOREIGN KEY (TopicID)
-        REFERENCES Topics(TopicID)
+    CONSTRAINT FK_Tutorials_Categories
+        FOREIGN KEY (CategoryID)
+        REFERENCES Categories(CategoryID)
         ON DELETE NO ACTION,
 
     CONSTRAINT FK_Tutorials_Users
@@ -179,13 +179,58 @@ CREATE TABLE [SavedTutorials] (
 INSERT INTO [Users] (FullName, Email, PasswordHash, Role, AccountStatus)
 VALUES
 ('Admin User', 'admin@smartclicks.com', '1234', 'Admin', 'Active'),
-('John Doe', 'john@example.com', '1234', 'RegisteredUser', 'Active'),
-('Sarah Joe', 'sarah@example.com', '1234', 'RegisteredUser', 'Active');
+('John Doe', 'john@smartclicks.com', '1234', 'RegisteredUser', 'Active'),
+('Sarah Joe', 'sarah@smartclicks.com', '1234', 'RegisteredUser', 'Active'),
+('Adam Sandler', 'adam@smartclicks.com', '1234', 'RegisteredUser', 'Suspended');
 
--- Topics
-INSERT INTO [Topics] (TopicName, TopicDescription)
+-- Categories
+INSERT INTO [Categories] (CategoryName, CategoryDescription)
 VALUES
 ('Camera Basics', 'Introduction to camera functions and settings'),
 ('Lighting Techniques', 'Understanding natural and artificial lighting'),
 ('Composition', 'Rules and creative framing techniques'),
 ('Smartphone Photography', 'Taking professional photos using smartphones');
+
+-- Tutorials
+INSERT INTO Tutorials
+(Title, Description, ContentText, VideoURL, ImageURL, CategoryID, CreatedBy)
+VALUES
+('Understanding Aperture',
+ 'How aperture affects depth of field.',
+ 'Aperture controls the amount of light entering the lens and determines background blur (bokeh). Lower f-stop = blurrier background.',
+ 'https://youtube.com/watch?v=aperture101',
+ 'images/aperture.jpg',
+ 1,
+ 1),
+
+('ISO and Shutter Speed Explained',
+ 'Balancing light and motion.',
+ 'ISO controls sensor sensitivity. Shutter speed controls motion blur. Fast shutter freezes motion, slow shutter creates blur.',
+ 'https://youtube.com/watch?v=iso-shutter',
+ 'images/shutter.jpg',
+ 1,
+ 1),
+
+('Using Natural Light in Portraits',
+ 'Work with sunlight for better portraits.',
+ 'Position subjects near windows. Use golden hour for warm tones and soft shadows.',
+ 'https://youtube.com/watch?v=natural-light',
+ 'images/natural-light.jpg',
+ 2,
+ 1),
+
+('Rule of Thirds Mastery',
+ 'Improve composition using grid rules.',
+ 'Divide your frame into 9 sections. Place subjects along lines or intersections.',
+ 'https://youtube.com/watch?v=rule-of-thirds',
+ 'images/composition.jpg',
+ 3,
+ 1),
+
+('Smartphone Portrait Tricks',
+ 'Professional looking portraits using your phone.',
+ 'Use portrait mode, tap to focus, avoid digital zoom, and use natural light.',
+ 'https://youtube.com/watch?v=smartphone-portrait',
+ 'images/phone.jpg',
+ 4,
+ 1);
