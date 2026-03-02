@@ -87,3 +87,26 @@
     color: #aaa;
 }
 
+/* Admin Sidebar */
+.admin-sidebar 
+{
+    width: 250px;
+    background: #1c1f26;
+    border-right: 1px solid #333;
+}
+
+/* Sidebar Links */
+.admin-link 
+{
+    color: white;
+    transition: 0.3s ease;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+
+.admin-link:hover 
+{
+    background-color: #ffc107;
+    color: black;
+    transform: translateX(6px);
+}

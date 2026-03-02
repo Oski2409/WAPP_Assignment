@@ -19,11 +19,7 @@ namespace WAPP_Assignment.Pages
             {
                 conn.Open();
 
-                string query = @"SELECT UserID, Role 
-                         FROM Users 
-                         WHERE Email = @Email 
-                         AND PasswordHash = @Password 
-                         AND AccountStatus = 'Active'";
+                string query = "SELECT UserID, Role FROM Users WHERE Email=@Email AND PasswordHash=@Password";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
@@ -36,7 +32,14 @@ namespace WAPP_Assignment.Pages
                     Session["UserID"] = reader["UserID"].ToString();
                     Session["Role"] = reader["Role"].ToString();
 
-                    Response.Redirect("Tutorials.aspx");
+                    if (reader["Role"].ToString() == "Admin")
+                    {
+                        Response.Redirect("AdminDashboard.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("Tutorials.aspx");
+                    }
                 }
                 else
                 {

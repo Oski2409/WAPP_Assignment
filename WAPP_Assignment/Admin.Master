@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="WAPP_Assignment.AdminMaster" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Admin Panel - SmartClicks</title>
+
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body style="background-color:#111; color:white;">
+
+<form runat="server">
+
+<div class="d-flex" style="min-height:100vh;">
+
+    <!-- SIDEBAR -->
+    <div class="admin-sidebar p-4">
+
+        <h4 class="text-warning mb-4">Admin Panel</h4>
+
+        <ul class="nav flex-column">
+
+            <li class="nav-item mb-3">
+                <a class="nav-link admin-link" href="AdminDashboard.aspx">
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item mb-3">
+                <a class="nav-link admin-link" href="ManageTutorials.aspx">
+                    Manage Tutorials
+                </a>
+            </li>
+
+            <li class="nav-item mb-3">
+                <a class="nav-link admin-link" href="ManageUsers.aspx">
+                    Manage Users
+                </a>
+            </li>
+
+            <li class="nav-item mb-3">
+                <a class="nav-link admin-link" href="ManageQuizzes.aspx">
+                    Manage Quizzes
+                </a>
+            </li>
+
+            <li class="nav-item mt-4">
+                <asp:LinkButton ID="btnLogout"
+                    runat="server"
+                    CssClass="nav-link text-danger"
+                    OnClick="btnLogout_Click">
+                    Logout
+                </asp:LinkButton>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-fill p-5">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+
+</div>
+
+</form>
+</body>
+</html>
