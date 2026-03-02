@@ -15,7 +15,7 @@
     </asp:PlaceHolder>
 
     <!-- Bootstrap CSS -->
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" path="~/Content/css" />
     <link href="css/style.css" rel="stylesheet" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
@@ -36,20 +36,28 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark shadow">
             <div class="container">
 
+                <!-- Logo -->
                 <a class="navbar-brand fw-bold text-warning" href="Default.aspx">
                     SmartClicks
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <!-- Mobile Toggle -->
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
 
-                        <!-- Always visible -->
+                        <!-- Always Visible -->
                         <li class="nav-item">
                             <a class="nav-link" href="Default.aspx">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.aspx">About</a>
                         </li>
 
                         <!-- MEMBER ONLY -->
@@ -89,9 +97,10 @@
         <!-- MAIN CONTENT -->
         <div class="container body-content mt-5">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-            
+
             <hr class="bg-light" />
 
+            <!-- FOOTER -->
             <footer class="text-center py-3">
                 <p class="mb-0">&copy; 2026 SmartClicks | Photography Learning Platform</p>
             </footer>

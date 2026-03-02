@@ -1,0 +1,89 @@
+﻿/* Card Hover Effect */
+.card 
+{
+    transition: transform 0.3s ease;
+}
+
+    .card:hover 
+    {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    }
+
+/* Category Cards */
+.category-card 
+{
+    background: linear-gradient(145deg, #1c1c1c, #111);
+    border: 1px solid #2a2a2a;
+    transition: all 0.3s ease;
+    color: white;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .category-card:hover 
+    {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(255, 193, 7, 0.4);
+        border-color: #ffc107;
+    }
+
+/* Center entire login section */
+.login-wrapper 
+{
+    min-height: 100vh;
+}
+
+/* Login card */
+.login-card 
+{
+    background: #1c1f26;
+    width: 400px;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+/* Input styling */
+.custom-input 
+{
+    background-color: #2a2f38;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 15px;
+}
+
+    .custom-input:focus 
+    {
+        background-color: #2a2f38;
+        color: white;
+        border-color: #ffc107;
+        box-shadow: 0 0 8px #ffc10755;
+    }
+
+/* Login button */
+.custom-login-btn 
+{
+    background-color: #ffc107;
+    border: none; /* add this */
+    border-radius: 30px;
+    padding: 10px 40px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+    /* Hover effect */
+    .custom-login-btn:hover 
+    {
+        background-color: #e0a800;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #ffc10788;
+    }
+
+.custom-input::placeholder 
+{
+    color: #aaa;
+}
+
