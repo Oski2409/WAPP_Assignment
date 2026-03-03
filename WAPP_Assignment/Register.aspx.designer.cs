@@ -15,13 +15,22 @@ namespace WAPP_Assignment.Pages
     {
 
         /// <summary>
-        /// txtName control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtName;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
+        /// txtFullName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFullName;
 
         /// <summary>
         /// txtEmail control.
@@ -49,15 +58,6 @@ namespace WAPP_Assignment.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// btnRegister control.
