@@ -78,6 +78,10 @@
                             <a class="nav-link" href="Register.aspx">Register</a>
                         </li>
 
+                        <li class="nav-item" runat="server" id="navProfile">
+                            <a class="nav-link" href="Profile.aspx">Profile</a>
+                        </li>
+
                         <!-- LOGOUT (MEMBER ONLY) -->
                         <li class="nav-item" runat="server" id="navLogout">
                             <asp:LinkButton ID="btnLogout"

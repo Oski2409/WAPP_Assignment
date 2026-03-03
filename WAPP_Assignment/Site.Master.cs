@@ -11,30 +11,48 @@ namespace WAPP_Assignment
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserID"] != null)
+            bool isLoggedIn = Session["UserID"] != null;
+            string role = Session["Role"] != null ? Session["Role"].ToString() : "";
+
+            // Guest
+            if (!isLoggedIn)
             {
-                // Logged in user
-                navLogin.Visible = false;
-                navRegister.Visible = false;
-                navTutorials.Visible = true;
-                navQuiz.Visible = true;
-                navLogout.Visible = true;
+                navLogin.Visible = true;
+                navRegister.Visible = true;
+
+                navTutorials.Visible = false;
+                navQuiz.Visible = false;
+                navProfile.Visible = false;
+                navLogout.Visible = false;
             }
             else
             {
-                // Guest
-                navLogin.Visible = true;
-                navRegister.Visible = true;
-                navTutorials.Visible = false;
-                navQuiz.Visible = false;
-                navLogout.Visible = false;
+                // Logged in
+                navLogin.Visible = false;
+                navRegister.Visible = false;
+
+                navProfile.Visible = true;
+                navLogout.Visible = true;
+
+                if (role == "Admin")
+                {
+                    // Admin sees Admin Dashboard instead of Tutorials
+                    navTutorials.Visible = false;
+                    navQuiz.Visible = false;
+                }
+                else
+                {
+                    // Normal registered user
+                    navTutorials.Visible = true;
+                    navQuiz.Visible = true;
+                }
             }
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Response.Redirect("Default.aspx");
+        protected void btnLogout_Click(object sender, EventArgs e) 
+        { 
+            Session.Clear(); 
+            Response.Redirect("Default.aspx"); 
         }
     }
 }
