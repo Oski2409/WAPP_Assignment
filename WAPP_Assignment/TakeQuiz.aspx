@@ -2,55 +2,38 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb bg-dark p-3 rounded shadow-sm">
-            <li class="breadcrumb-item">
-                <a href="Default.aspx" class="text-warning">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="Tutorials.aspx" class="text-warning">Tutorials</a>
-            </li>
-            <li class="breadcrumb-item active text-white">Current Page
-        </li>
-        </ol>
-    </nav>
+<div class="container mt-5">
 
-    <h2 class="mb-4">Self-Assessment Quiz</h2>
+    <h2 class="text-warning mb-4">Quiz</h2>
 
-    <div class="card bg-dark text-white shadow mb-4">
-        <div class="card-body">
+    <asp:Repeater ID="rptQuestions" runat="server">
+        <ItemTemplate>
 
-            <h5>1. What does ISO control in photography?</h5>
+            <div class="card bg-dark text-white p-4 mb-4 shadow">
 
-            <asp:RadioButtonList ID="rbQuestion1" runat="server" CssClass="mt-3">
-                <asp:ListItem>Light sensitivity</asp:ListItem>
-                <asp:ListItem>Zoom level</asp:ListItem>
-                <asp:ListItem>Lens focus</asp:ListItem>
-                <asp:ListItem>White balance</asp:ListItem>
-            </asp:RadioButtonList>
+                <h5><%# Eval("QuestionText") %></h5>
 
-        </div>
-    </div>
+                <asp:RadioButtonList ID="rblOptions"
+                    runat="server"
+                    CssClass="mt-3"
+                    RepeatDirection="Vertical">
+                </asp:RadioButtonList>
 
-    <div class="card bg-dark text-white shadow mb-4">
-        <div class="card-body">
+                <asp:HiddenField ID="hfCorrectAnswer"
+                    runat="server"
+                    Value='<%# Eval("CorrectAnswer") %>' />
 
-            <h5>2. A low f-number means:</h5>
+            </div>
 
-            <asp:RadioButtonList ID="rbQuestion2" runat="server" CssClass="mt-3">
-                <asp:ListItem>Less light enters</asp:ListItem>
-                <asp:ListItem>More light enters</asp:ListItem>
-                <asp:ListItem>Faster shutter</asp:ListItem>
-                <asp:ListItem>Lower ISO</asp:ListItem>
-            </asp:RadioButtonList>
+        </ItemTemplate>
+    </asp:Repeater>
 
-        </div>
-    </div>
+    <asp:Button ID="btnSubmit"
+        runat="server"
+        Text="Submit Quiz"
+        CssClass="btn btn-warning mt-3"
+        OnClick="btnSubmit_Click" />
 
-    <div class="text-center mt-4">
-        <asp:Button ID="btnSubmit" runat="server"
-            Text="Submit Quiz"
-            CssClass="btn btn-warning btn-lg" />
-    </div>
+</div>
 
 </asp:Content>

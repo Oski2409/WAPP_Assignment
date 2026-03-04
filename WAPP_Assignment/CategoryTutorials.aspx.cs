@@ -57,23 +57,30 @@ namespace WAPP_Assignment
         private void AddCard(string title, string tutorialID)
         {
             tutorialContainer.InnerHtml += $@"
-        <div class='col-md-4 mb-4'>
-            <div class='card bg-dark text-white shadow-lg border-0 h-100'>
-                <img src='Images/sample.jpg' 
-                     class='card-img-top' 
-                     alt='{title}'>
-                <div class='card-body d-flex flex-column'>
-                    <h5 class='card-title'>{title}</h5>
-                    <p class='card-text'>
-                        Learn key techniques and practical applications.
-                    </p>
-                    <a href='ViewTutorial.aspx?TutorialID={tutorialID}'
-                       class='btn btn-warning mt-auto w-100'>
-                       View Tutorial
-                    </a>
+            <div class='col-md-4 mb-4'>
+                <div class='card bg-dark text-white shadow-lg border-0 h-100'>
+                    <img src='Images/sample.jpg' 
+                        class='card-img-top' 
+                        alt='{title}'>
+                    <div class='card-body d-flex flex-column'>
+                        <h5 class='card-title'>{title}</h5>
+                        <p class='card-text'>
+                            Learn key techniques and practical applications.
+                        </p>
+
+                        <a href='ViewTutorial.aspx?TutorialID={tutorialID}'
+                        class='btn btn-outline-light mt-2 w-100'>
+                        View Tutorial
+                        </a>
+
+                        <a href='TakeQuiz.aspx?quizId={tutorialID}'
+                        class='btn btn-warning mt-2 w-100'>
+                        Take Self Assessment
+                        </a>
+
+                    </div>
                 </div>
-            </div>
-        </div>";
+            </div>";
         }
     }
 }

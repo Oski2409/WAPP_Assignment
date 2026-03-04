@@ -11,25 +11,34 @@ namespace WAPP_Assignment.Pages
 {
 
 
-    public partial class TakeQuiz
+    public partial class Quiz
     {
 
         /// <summary>
-        /// rptQuestions control.
+        /// pnlCategories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptQuestions;
+        protected global::System.Web.UI.WebControls.Panel pnlCategories;
 
         /// <summary>
-        /// btnSubmit control.
+        /// pnlTutorials control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Panel pnlTutorials;
+
+        /// <summary>
+        /// rptTutorialQuizzes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptTutorialQuizzes;
     }
 }
