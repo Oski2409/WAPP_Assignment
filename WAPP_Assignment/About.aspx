@@ -2,46 +2,179 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 
-<div class="container mt-5">
+    <div class="container mt-5">
 
-    <h1 class="text-warning text-center mb-4">About SmartClicks</h1>
+        <!-- HERO TITLE -->
 
-    <div class="card bg-dark text-white p-4 shadow-lg mb-4">
-        <h3>📸 Our Mission</h3>
-        <p>
-            SmartClicks is an interactive online learning platform designed to help aspiring photographers 
-            and videographers master essential skills through structured tutorials and self-assessment quizzes.
-        </p>
+        <div class="text-center mb-5 reveal">
+            <h1 class="text-warning">About SmartClicks</h1>
+
+            <p class="lead mt-3">
+                A modern learning platform designed to help aspiring photographers and videographers
+                master creative skills through structured tutorials and interactive quizzes.
+            </p>
+        </div>
+
+
+
+        <!-- IMAGE + MISSION -->
+
+        <div class="row align-items-center mb-5 reveal">
+
+            <div class="col-md-6">
+                <img src="Images/about-photography.jpg"
+                    class="img-fluid rounded shadow">
+            </div>
+
+            <div class="col-md-6">
+
+                <h2 class="text-warning">Our Mission</h2>
+
+                <p class="mt-3">
+                    SmartClicks was created to provide a structured and engaging way for beginners
+                    to learn photography and videography skills without feeling overwhelmed.
+                </p>
+
+                <p>
+                    Instead of random tutorials scattered across the internet, our platform
+                    organises learning into clear categories, tutorials, and quizzes so users
+                    can build skills step-by-step.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WHAT WE OFFER -->
+
+        <section class="mb-5 reveal">
+
+            <h2 class="text-warning text-center mb-4">What We Offer
+            </h2>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-4">
+
+                    <div class="card bg-dark text-white shadow-lg p-4 h-100">
+
+                        <h4>📸 Photography Tutorials</h4>
+
+                        <p class="mt-2">
+                            Step-by-step tutorials covering landscape, portrait,
+                        street photography and more.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-md-4 mb-4">
+
+                    <div class="card bg-dark text-white shadow-lg p-4 h-100">
+
+                        <h4>🎥 Videography Learning</h4>
+
+                        <p class="mt-2">
+                            Understand camera movement, framing,
+                            audio setup and cinematic storytelling.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-md-4 mb-4">
+
+                    <div class="card bg-dark text-white shadow-lg p-4 h-100">
+
+                        <h4>📝 Interactive Quizzes</h4>
+
+                        <p class="mt-2">
+                            Test your knowledge with self-assessment quizzes
+                            and track your learning progress.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- WHO THIS IS FOR -->
+
+        <section class="mb-5 reveal">
+
+            <h2 class="text-warning text-center mb-4">Who Is SmartClicks For?
+            </h2>
+
+            <div class="row text-center">
+
+                <div class="col-md-4">
+
+                    <h4>🎓 Beginners</h4>
+
+                    <p>
+                        People who want to learn photography from the basics
+                        without feeling overwhelmed.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h4>📷 Hobbyists</h4>
+
+                    <p>
+                        Photography enthusiasts who want to improve their
+                        creative skills and technical understanding.
+                    </p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h4>🎬 Content Creators</h4>
+
+                    <p>
+                        Creators who want to learn better filming,
+                        composition and editing techniques.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CALL TO ACTION -->
+
+        <div class="text-center mb-5 reveal">
+
+            <h2 class="text-warning">Start Learning With SmartClicks
+            </h2>
+
+            <p class="mt-3">
+                Join our platform and begin your photography journey today.
+            </p>
+
+            <a href="Register.aspx" class="btn btn-warning btn-lg mt-3">Create Free Account
+            </a>
+
+        </div>
+
     </div>
-
-    <div class="card bg-dark text-white p-4 shadow-lg mb-4">
-        <h3>🎯 What We Offer</h3>
-        <ul>
-            <li>Step-by-step photography tutorials</li>
-            <li>Video-based learning resources</li>
-            <li>Interactive quizzes for self-assessment</li>
-            <li>Progress tracking for registered members</li>
-            <li>Admin-managed structured learning content</li>
-        </ul>
-    </div>
-
-    <div class="card bg-dark text-white p-4 shadow-lg mb-4">
-        <h3>👥 Who Is This For?</h3>
-        <p>
-            SmartClicks is built for beginners and intermediate learners who want to develop 
-            professional photography and videography skills in a structured and engaging way.
-        </p>
-    </div>
-
-    <div class="card bg-dark text-white p-4 shadow-lg mb-4">
-        <h3>🚀 Why Choose SmartClicks?</h3>
-        <p>
-            Unlike random online tutorials, SmartClicks organizes content by categories, connects 
-            tutorials with quizzes, and ensures a systematic learning experience supported by 
-            a structured database-driven system.
-        </p>
-    </div>
-
-</div>
 
 </asp:Content>

@@ -131,6 +131,7 @@
     <Content Include="Images\landscape.jpg" />
     <Content Include="Images\hero-bg.jpeg" />
     <Content Include="Images\learning-photography.jpeg" />
+    <Content Include="Images\about-photography.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="ManageQuizzes.aspx" />
     <Content Include="ManageTutorials.aspx" />

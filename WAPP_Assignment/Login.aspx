@@ -7,7 +7,7 @@
     <div class="login-card p-5 shadow-lg">
 
         <h2 class="text-center text-white mb-4">LOGIN</h2>
-        <p class="text-center text-muted mb-4">
+        <p class="text-center text-light mb-4">
             Please enter your login credentials
         </p>
 
