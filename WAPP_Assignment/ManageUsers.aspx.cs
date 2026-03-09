@@ -1,44 +1,53 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI;
+using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace WAPP_Assignment.Pages
 {
     public partial class ManageUsers : System.Web.UI.Page
     {
-        string conStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
+        private string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Admin protection
-            if (Session["Role"] == null || Session["Role"].ToString() != "Admin")
-            {
-                Response.Redirect("~/Login.aspx");
-            }
-
             if (!IsPostBack)
-            {
                 LoadUsers();
-            }
         }
 
         private void LoadUsers()
         {
-            using (SqlConnection con = new SqlConnection(conStr))
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT UserID, FullName, Email, Role, AccountStatus, RegistrationDate FROM Users",
-                    con);
-
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Users", conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 gvUsers.DataSource = dt;
                 gvUsers.DataBind();
             }
+        }
+
+        protected void btnAddUser_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string query = @"INSERT INTO Users (FullName, Email, Role, AccountStatus, RegistrationDate)
+                         VALUES (@FullName, @Email, @Role, @Status, GETDATE())";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@FullName", txtNewFullName.Text);
+                cmd.Parameters.AddWithValue("@Email", txtNewEmail.Text);
+                cmd.Parameters.AddWithValue("@Role", ddlNewRole.SelectedValue);
+                cmd.Parameters.AddWithValue("@Status", ddlNewStatus.SelectedValue);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            // Clear fields
+            txtNewFullName.Text = txtNewEmail.Text = "";
+            ddlNewRole.SelectedIndex = ddlNewStatus.SelectedIndex = 0;
+
+            LoadUsers();
         }
 
         protected void gvUsers_RowEditing(object sender, GridViewEditEventArgs e)
@@ -55,77 +64,43 @@ namespace WAPP_Assignment.Pages
 
         protected void gvUsers_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
-
+            int userID = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
             GridViewRow row = gvUsers.Rows[e.RowIndex];
 
-            string fullName = ((TextBox)row.Cells[1].Controls[0]).Text;
-            string email = ((TextBox)row.Cells[2].Controls[0]).Text;
+            string fullName = (row.Cells[1].Controls[0] as TextBox)?.Text ?? "";
+            string email = (row.Cells[2].Controls[0] as TextBox)?.Text ?? "";
+            string role = (row.Cells[3].Controls[0] as TextBox)?.Text ?? "";
+            string status = (row.Cells[4].Controls[0] as TextBox)?.Text ?? "";
 
-            DropDownList ddlRole = (DropDownList)row.FindControl("ddlRole");
-            DropDownList ddlStatus = (DropDownList)row.FindControl("ddlStatus");
-
-            string role = ddlRole.SelectedValue;
-            string status = ddlStatus.SelectedValue;
-
-            using (SqlConnection con = new SqlConnection(conStr))
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand(
-                    @"UPDATE Users 
-                      SET FullName=@FullName,
-                          Email=@Email,
-                          Role=@Role,
-                          AccountStatus=@Status
-                      WHERE UserID=@UserID", con);
-
+                string query = @"UPDATE Users 
+                                 SET FullName=@FullName, Email=@Email, Role=@Role, AccountStatus=@Status
+                                 WHERE UserID=@UserID";
+                SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@FullName", fullName);
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Role", role);
                 cmd.Parameters.AddWithValue("@Status", status);
-                cmd.Parameters.AddWithValue("@UserID", userId);
-
-                con.Open();
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                conn.Open();
                 cmd.ExecuteNonQuery();
             }
-
             gvUsers.EditIndex = -1;
             LoadUsers();
         }
 
         protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int userId = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
-
-            using (SqlConnection con = new SqlConnection(conStr))
+            int userID = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM Users WHERE UserID=@UserID", con);
-
-                cmd.Parameters.AddWithValue("@UserID", userId);
-
-                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Users WHERE UserID=@UserID", conn);
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                conn.Open();
                 cmd.ExecuteNonQuery();
             }
-
             LoadUsers();
-        }
-
-        protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow && gvUsers.EditIndex == e.Row.RowIndex)
-            {
-                string role = DataBinder.Eval(e.Row.DataItem, "Role").ToString();
-                string status = DataBinder.Eval(e.Row.DataItem, "AccountStatus").ToString();
-
-                DropDownList ddlRole = (DropDownList)e.Row.FindControl("ddlRole");
-                DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlStatus");
-
-                if (ddlRole != null)
-                    ddlRole.SelectedValue = role;
-
-                if (ddlStatus != null)
-                    ddlStatus.SelectedValue = status;
-            }
         }
     }
 }

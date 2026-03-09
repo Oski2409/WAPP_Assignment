@@ -15,6 +15,42 @@ namespace WAPP_Assignment.Pages
     {
 
         /// <summary>
+        /// txtQuizTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuizTitle;
+
+        /// <summary>
+        /// txtQuizDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQuizDesc;
+
+        /// <summary>
+        /// ddlTutorial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTutorial;
+
+        /// <summary>
+        /// btnAddQuiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddQuiz;
+
+        /// <summary>
         /// rptQuizzes control.
         /// </summary>
         /// <remarks>

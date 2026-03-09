@@ -1,119 +1,84 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace WAPP_Assignment.Pages
 {
     public partial class ManageQuizzes : System.Web.UI.Page
     {
         private string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
-        private DataTable dtQuizzes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
+            {
+                LoadTutorials();
                 LoadQuizzes();
+            }
         }
 
+        // Load all Tutorials into the DropDownList
+        private void LoadTutorials()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT TutorialID, Title FROM Tutorials", conn);
+                conn.Open();
+                ddlTutorial.DataSource = cmd.ExecuteReader();
+                ddlTutorial.DataTextField = "Title";        // Display text
+                ddlTutorial.DataValueField = "TutorialID";  // Value to insert
+                ddlTutorial.DataBind();
+            }
+        }
+
+        // Load all Quizzes into the repeater
         private void LoadQuizzes()
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = @"SELECT q.QuizID, q.Title, q.Description, q.TutorialID,
-                                 t.Title AS TutorialTitle, q.CreatedBy, q.CreatedDate
-                                 FROM Quizzes q
-                                 INNER JOIN Tutorials t ON q.TutorialID = t.TutorialID";
+                string query = @"
+                    SELECT q.QuizID, q.Title, q.Description, t.Title AS TutorialTitle
+                    FROM Quizzes q
+                    INNER JOIN Tutorials t ON q.TutorialID = t.TutorialID
+                    ORDER BY q.QuizID DESC";
+
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                dtQuizzes = new DataTable();
-                da.Fill(dtQuizzes);
-
-                if (!dtQuizzes.Columns.Contains("IsEditing"))
-                    dtQuizzes.Columns.Add("IsEditing", typeof(bool));
-
-                foreach (DataRow row in dtQuizzes.Rows)
-                    row["IsEditing"] = false;
-
-                rptQuizzes.DataSource = dtQuizzes;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                rptQuizzes.DataSource = dt;
                 rptQuizzes.DataBind();
             }
         }
 
-        protected void rptQuizzes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        // Add new Quiz
+        protected void btnAddQuiz_Click(object sender, EventArgs e)
         {
-            int quizId = Convert.ToInt32(e.CommandArgument);
+            if (string.IsNullOrWhiteSpace(txtQuizTitle.Text) || ddlTutorial.SelectedIndex < 0)
+                return; // basic validation
 
-            if (e.CommandName == "Edit")
-                ToggleEdit(quizId, true);
-            else if (e.CommandName == "Cancel")
-                ToggleEdit(quizId, false);
-            else if (e.CommandName == "Update")
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                TextBox txtTitle = (TextBox)e.Item.FindControl("txtTitle");
-                TextBox txtDesc = (TextBox)e.Item.FindControl("txtDescription");
-                DropDownList ddlTutorial = (DropDownList)e.Item.FindControl("ddlTutorial");
+                string query = @"
+                    INSERT INTO Quizzes (TutorialID, Title, Description, CreatedBy, CreatedDate)
+                    VALUES (@TutorialID, @Title, @Desc, @CreatedBy, GETDATE())";
 
-                using (SqlConnection conn = new SqlConnection(connStr))
-                {
-                    string query = @"UPDATE Quizzes SET Title=@Title, Description=@Desc, TutorialID=@Tid
-                                     WHERE QuizID=@ID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Title", txtTitle.Text);
-                    cmd.Parameters.AddWithValue("@Desc", txtDesc.Text);
-                    cmd.Parameters.AddWithValue("@Tid", ddlTutorial.SelectedValue);
-                    cmd.Parameters.AddWithValue("@ID", quizId);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TutorialID", ddlTutorial.SelectedValue);
+                cmd.Parameters.AddWithValue("@Title", txtQuizTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@Desc", txtQuizDesc.Text.Trim());
+                cmd.Parameters.AddWithValue("@CreatedBy", 1); // default admin
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                ToggleEdit(quizId, false);
+                conn.Open();
+                cmd.ExecuteNonQuery();
             }
-            else if (e.CommandName == "Delete")
-            {
-                using (SqlConnection conn = new SqlConnection(connStr))
-                {
-                    string query = "DELETE FROM Quizzes WHERE QuizID=@ID";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@ID", quizId);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                LoadQuizzes();
-            }
-        }
 
-        private void ToggleEdit(int quizId, bool isEditing)
-        {
+            // Clear fields
+            txtQuizTitle.Text = txtQuizDesc.Text = "";
+            ddlTutorial.SelectedIndex = 0;
+
+            // Reload list
             LoadQuizzes();
-            foreach (DataRow row in dtQuizzes.Rows)
-                if ((int)row["QuizID"] == quizId)
-                    row["IsEditing"] = isEditing;
-
-            rptQuizzes.DataSource = dtQuizzes;
-            rptQuizzes.DataBind();
-        }
-
-        protected void rptQuizzes_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                DropDownList ddlTutorial = (DropDownList)e.Item.FindControl("ddlTutorial");
-                if (ddlTutorial != null)
-                {
-                    using (SqlConnection conn = new SqlConnection(connStr))
-                    {
-                        SqlCommand cmd = new SqlCommand("SELECT TutorialID, Title FROM Tutorials", conn);
-                        conn.Open();
-                        ddlTutorial.DataSource = cmd.ExecuteReader();
-                        ddlTutorial.DataTextField = "Title";
-                        ddlTutorial.DataValueField = "TutorialID";
-                        ddlTutorial.DataBind();
-                        ddlTutorial.SelectedValue = Convert.ToString(DataBinder.Eval(e.Item.DataItem, "TutorialID"));
-                    }
-                }
-            }
         }
     }
 }
