@@ -10,97 +10,108 @@ namespace WAPP_Assignment.Pages
     public partial class ManageQuizzes : System.Web.UI.Page
     {
         private string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
+        private DataTable dtQuizzes;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-                BindGrid();
+                LoadQuizzes();
         }
 
-        private void BindGrid()
+        private void LoadQuizzes()
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = @"SELECT q.QuizID, q.TutorialID, q.Title, q.Description, 
+                string query = @"SELECT q.QuizID, q.Title, q.Description, q.TutorialID,
                                  t.Title AS TutorialTitle, q.CreatedBy, q.CreatedDate
                                  FROM Quizzes q
                                  INNER JOIN Tutorials t ON q.TutorialID = t.TutorialID";
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                gvQuizzes.DataSource = dt;
-                gvQuizzes.DataBind();
+                dtQuizzes = new DataTable();
+                da.Fill(dtQuizzes);
+
+                if (!dtQuizzes.Columns.Contains("IsEditing"))
+                    dtQuizzes.Columns.Add("IsEditing", typeof(bool));
+
+                foreach (DataRow row in dtQuizzes.Rows)
+                    row["IsEditing"] = false;
+
+                rptQuizzes.DataSource = dtQuizzes;
+                rptQuizzes.DataBind();
             }
         }
 
-        protected void gvQuizzes_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void rptQuizzes_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            gvQuizzes.EditIndex = e.NewEditIndex;
-            BindGrid();
-        }
+            int quizId = Convert.ToInt32(e.CommandArgument);
 
-        protected void gvQuizzes_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            gvQuizzes.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void gvQuizzes_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {
-            int quizId = Convert.ToInt32(gvQuizzes.DataKeys[e.RowIndex].Value);
-            GridViewRow row = gvQuizzes.Rows[e.RowIndex];
-
-            string title = ((TextBox)row.Cells[1].Controls[0]).Text;
-            string description = ((TextBox)row.Cells[2].Controls[0]).Text;
-            int tutorialId = Convert.ToInt32(((DropDownList)row.FindControl("ddlTutorial")).SelectedValue);
-
-            using (SqlConnection conn = new SqlConnection(connStr))
+            if (e.CommandName == "Edit")
+                ToggleEdit(quizId, true);
+            else if (e.CommandName == "Cancel")
+                ToggleEdit(quizId, false);
+            else if (e.CommandName == "Update")
             {
-                string query = "UPDATE Quizzes SET Title=@Title, Description=@Desc, TutorialID=@Tid WHERE QuizID=@ID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Title", title);
-                cmd.Parameters.AddWithValue("@Desc", description);
-                cmd.Parameters.AddWithValue("@Tid", tutorialId);
-                cmd.Parameters.AddWithValue("@ID", quizId);
+                TextBox txtTitle = (TextBox)e.Item.FindControl("txtTitle");
+                TextBox txtDesc = (TextBox)e.Item.FindControl("txtDescription");
+                DropDownList ddlTutorial = (DropDownList)e.Item.FindControl("ddlTutorial");
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            gvQuizzes.EditIndex = -1;
-            BindGrid();
-        }
-
-        protected void gvQuizzes_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            int quizId = Convert.ToInt32(gvQuizzes.DataKeys[e.RowIndex].Value);
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                string query = "DELETE FROM Quizzes WHERE QuizID=@ID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@ID", quizId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            BindGrid();
-        }
-
-        protected void gvQuizzes_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow && gvQuizzes.EditIndex == e.Row.RowIndex)
-            {
-                DropDownList ddlTutorial = (DropDownList)e.Row.FindControl("ddlTutorial");
                 using (SqlConnection conn = new SqlConnection(connStr))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT TutorialID, Title FROM Tutorials", conn);
-                    conn.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    ddlTutorial.DataSource = reader;
-                    ddlTutorial.DataTextField = "Title";
-                    ddlTutorial.DataValueField = "TutorialID";
-                    ddlTutorial.DataBind();
+                    string query = @"UPDATE Quizzes SET Title=@Title, Description=@Desc, TutorialID=@Tid
+                                     WHERE QuizID=@ID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Title", txtTitle.Text);
+                    cmd.Parameters.AddWithValue("@Desc", txtDesc.Text);
+                    cmd.Parameters.AddWithValue("@Tid", ddlTutorial.SelectedValue);
+                    cmd.Parameters.AddWithValue("@ID", quizId);
 
-                    ddlTutorial.SelectedValue = DataBinder.Eval(e.Row.DataItem, "TutorialID").ToString();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                ToggleEdit(quizId, false);
+            }
+            else if (e.CommandName == "Delete")
+            {
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    string query = "DELETE FROM Quizzes WHERE QuizID=@ID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ID", quizId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                LoadQuizzes();
+            }
+        }
+
+        private void ToggleEdit(int quizId, bool isEditing)
+        {
+            LoadQuizzes();
+            foreach (DataRow row in dtQuizzes.Rows)
+                if ((int)row["QuizID"] == quizId)
+                    row["IsEditing"] = isEditing;
+
+            rptQuizzes.DataSource = dtQuizzes;
+            rptQuizzes.DataBind();
+        }
+
+        protected void rptQuizzes_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DropDownList ddlTutorial = (DropDownList)e.Item.FindControl("ddlTutorial");
+                if (ddlTutorial != null)
+                {
+                    using (SqlConnection conn = new SqlConnection(connStr))
+                    {
+                        SqlCommand cmd = new SqlCommand("SELECT TutorialID, Title FROM Tutorials", conn);
+                        conn.Open();
+                        ddlTutorial.DataSource = cmd.ExecuteReader();
+                        ddlTutorial.DataTextField = "Title";
+                        ddlTutorial.DataValueField = "TutorialID";
+                        ddlTutorial.DataBind();
+                        ddlTutorial.SelectedValue = Convert.ToString(DataBinder.Eval(e.Item.DataItem, "TutorialID"));
+                    }
                 }
             }
         }
