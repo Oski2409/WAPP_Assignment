@@ -22,14 +22,24 @@
         <div class="card bg-dark text-white shadow mx-auto" style="max-width: 500px;">
             <div class="card-body">
 
+                <h4 class="text-light">
+    <asp:Label ID="lblQuizTitle" runat="server"></asp:Label>
+</h4>
+
+<p class="text-light">
+    Questions: <asp:Label ID="lblTotalQuestions" runat="server"></asp:Label>
+</p>
+
                 <h3 class="mb-3">Your Score</h3>
 
-                <!-- This will later be dynamic -->
-                <h1 class="display-4 text-warning">8 / 10</h1>
+                
+                <h1 class="display-4 text-warning">
+    <asp:Label ID="lblScore" runat="server"></asp:Label>
+</h1>
 
                 <p class="mt-3">
-                    Great job! You have a good understanding of this topic.
-                </p>
+    <asp:Label ID="lblMessage" runat="server"></asp:Label>
+</p>
 
                 <a href="Tutorials.aspx" class="btn btn-outline-light mt-4 me-2">
                     Back to Tutorials

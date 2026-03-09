@@ -68,7 +68,7 @@ namespace WAPP_Assignment.Pages
 
             SaveAttempt(finalScore);
 
-            Response.Redirect("QuizScore.aspx?score=" + finalScore);
+            Response.Redirect("QuizScore.aspx?score=" + finalScore + "&quizId=" + quizId);
         }
 
         private void SaveAttempt(int score)

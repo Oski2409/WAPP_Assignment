@@ -181,7 +181,8 @@ VALUES
 ('Admin User', 'admin@smartclicks.com', '1234', 'Admin', 'Active'),
 ('John Doe', 'john@smartclicks.com', '1234', 'RegisteredUser', 'Active'),
 ('Sarah Joe', 'sarah@smartclicks.com', '1234', 'RegisteredUser', 'Active'),
-('Adam Sandler', 'adam@smartclicks.com', '1234', 'RegisteredUser', 'Suspended');
+('Adam Sandler', 'adam@smartclicks.com', '1234', 'RegisteredUser', 'Suspended')
+('Samerjit Singh', 'samer@smartclicks.com', '1234', 'RegisteredUser', 'Active'),;
 
 -- Categories
 INSERT INTO [Categories] (CategoryName, CategoryDescription)

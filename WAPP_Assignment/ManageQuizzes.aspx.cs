@@ -11,10 +11,11 @@ namespace WAPP_Assignment.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
+            if(!IsPostBack)
+{
                 LoadTutorials();
                 LoadQuizzes();
+                LoadQuizDropdown();
             }
         }
 
@@ -29,6 +30,21 @@ namespace WAPP_Assignment.Pages
                 ddlTutorial.DataTextField = "Title";        // Display text
                 ddlTutorial.DataValueField = "TutorialID";  // Value to insert
                 ddlTutorial.DataBind();
+            }
+        }
+        private void LoadQuizDropdown()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT QuizID, Title FROM Quizzes", conn);
+
+                conn.Open();
+
+                ddlQuiz.DataSource = cmd.ExecuteReader();
+                ddlQuiz.DataTextField = "Title";
+                ddlQuiz.DataValueField = "QuizID";
+                ddlQuiz.DataBind();
             }
         }
 
@@ -79,6 +95,42 @@ namespace WAPP_Assignment.Pages
 
             // Reload list
             LoadQuizzes();
+            LoadQuizDropdown();
+        }
+
+        // add new question
+        protected void btnAddQuestion_Click(object sender, EventArgs e)
+        {
+            if (ddlQuiz.SelectedIndex < 0)
+            {
+                return;
+            }
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string query = @"INSERT INTO Questions
+                        (QuizID, QuestionText, OptionA, OptionB, OptionC, OptionD, CorrectAnswer)
+                        VALUES
+                        (@QuizID, @Question, @A, @B, @C, @D, @Correct)";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@QuizID", ddlQuiz.SelectedValue);
+                cmd.Parameters.AddWithValue("@Question", txtQuestion.Text.Trim());
+                cmd.Parameters.AddWithValue("@A", txtOptionA.Text.Trim());
+                cmd.Parameters.AddWithValue("@B", txtOptionB.Text.Trim());
+                cmd.Parameters.AddWithValue("@C", txtOptionC.Text.Trim());
+                cmd.Parameters.AddWithValue("@D", txtOptionD.Text.Trim());
+                cmd.Parameters.AddWithValue("@Correct", ddlCorrectAnswer.SelectedValue);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            txtQuestion.Text = "";
+            txtOptionA.Text = "";
+            txtOptionB.Text = "";
+            txtOptionC.Text = "";
+            txtOptionD.Text = "";
         }
     }
 }

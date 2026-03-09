@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+
+
 
 namespace WAPP_Assignment.Pages
 {
@@ -20,7 +25,7 @@ namespace WAPP_Assignment.Pages
                     pnlCategories.Visible = false;
                     pnlTutorials.Visible = true;
 
-                    LoadDummyTutorials();
+                    LoadTutorialQuizzes(Convert.ToInt32(category));
                 }
                 else
                 {
@@ -30,35 +35,52 @@ namespace WAPP_Assignment.Pages
             }
         }
 
-        private void LoadDummyTutorials()
+        private void LoadTutorialQuizzes(int categoryId)
         {
-            var tutorials = new List<dynamic>
-            {
-                new {
-                    QuizID = 1,
-                    Title = "Landscape Photography Quiz",
-                    CompletionStatus = "Completed",
-                    StatusClass = "text-success",
-                    LastScore = "80%"
-                },
-                new {
-                    QuizID = 2,
-                    Title = "Wildlife Photography Quiz",
-                    CompletionStatus = "Not Attempted",
-                    StatusClass = "text-danger",
-                    LastScore = "-"
-                },
-                new {
-                    QuizID = 3,
-                    Title = "Portrait Photography Quiz",
-                    CompletionStatus = "Completed",
-                    StatusClass = "text-success",
-                    LastScore = "90%"
-                }
-            };
+            string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
 
-            rptTutorialQuizzes.DataSource = tutorials;
-            rptTutorialQuizzes.DataBind();
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string query = @"
+            SELECT q.QuizID,
+                   q.Title,
+                   ISNULL(
+                       (SELECT TOP 1 Score 
+                        FROM QuizAttempts 
+                        WHERE QuizID = q.QuizID 
+                        AND UserID = @UserID
+                        ORDER BY AttemptDate DESC), '-') AS LastScore
+            FROM Quizzes q
+            INNER JOIN Tutorials t ON q.TutorialID = t.TutorialID
+            WHERE t.CategoryID = @CategoryID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@CategoryID", categoryId);
+                cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                var list = new List<dynamic>();
+
+                while (reader.Read())
+                {
+                    string score = reader["LastScore"].ToString();
+
+                    list.Add(new
+                    {
+                        QuizID = reader["QuizID"],
+                        Title = reader["Title"],
+                        CompletionStatus = score == "-" ? "Not Attempted" : "Completed",
+                        StatusClass = score == "-" ? "text-danger" : "text-success",
+                        LastScore = score == "-" ? "-" : score + "%"
+                    });
+                }
+
+                rptTutorialQuizzes.DataSource = list;
+                rptTutorialQuizzes.DataBind();
+            }
         }
     }
 }

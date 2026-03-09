@@ -6,7 +6,7 @@
 
     <h2 class="text-warning mb-4">Quiz</h2>
 
-    <asp:Repeater ID="rptQuestions" runat="server">
+    <asp:Repeater ID="rptQuestions" runat="server" OnItemDataBound="rptQuestions_ItemDataBound">
         <ItemTemplate>
 
             <div class="card bg-dark text-white shadow-lg border-0">
