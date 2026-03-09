@@ -6,7 +6,7 @@
     <title>Admin Panel - SmartClicks</title>
 
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="~/CSS/style.css" rel="stylesheet" />
 </head>
 
 <body style="background-color:#111; color:white;">
