@@ -7,7 +7,7 @@
 
 <h2 class="text-warning mb-4">Manage Users</h2>
 
-<div class="card bg-dark text-white shadow-lg border-0">
+<div class="card bg-dark text-white shadow-lg border-0 p-3">
 
     <asp:GridView ID="gvUsers"
         runat="server"
@@ -17,7 +17,8 @@
         OnRowEditing="gvUsers_RowEditing"
         OnRowCancelingEdit="gvUsers_RowCancelingEdit"
         OnRowUpdating="gvUsers_RowUpdating"
-        OnRowDeleting="gvUsers_RowDeleting">
+        OnRowDeleting="gvUsers_RowDeleting"
+        OnRowDataBound="gvUsers_RowDataBound">
 
         <Columns>
 
@@ -33,20 +34,20 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:DropDownList ID="ddlRole" runat="server">
-                        <asp:ListItem>RegisteredUser</asp:ListItem>
-                        <asp:ListItem>Admin</asp:ListItem>
+                        <asp:ListItem Value="RegisteredUser">RegisteredUser</asp:ListItem>
+                        <asp:ListItem Value="Admin">Admin</asp:ListItem>
                     </asp:DropDownList>
                 </EditItemTemplate>
             </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="Status">
+            <asp:TemplateField HeaderText="Account Status">
                 <ItemTemplate>
                     <%# Eval("AccountStatus") %>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:DropDownList ID="ddlStatus" runat="server">
-                        <asp:ListItem>Active</asp:ListItem>
-                        <asp:ListItem>Suspended</asp:ListItem>
+                        <asp:ListItem Value="Active">Active</asp:ListItem>
+                        <asp:ListItem Value="Suspended">Suspended</asp:ListItem>
                     </asp:DropDownList>
                 </EditItemTemplate>
             </asp:TemplateField>
@@ -60,6 +61,7 @@
                               ShowDeleteButton="True" />
 
         </Columns>
+
     </asp:GridView>
 
 </div>

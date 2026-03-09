@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WAPP_Assignment.Pages
@@ -107,6 +108,24 @@ namespace WAPP_Assignment.Pages
             }
 
             LoadUsers();
+        }
+
+        protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && gvUsers.EditIndex == e.Row.RowIndex)
+            {
+                string role = DataBinder.Eval(e.Row.DataItem, "Role").ToString();
+                string status = DataBinder.Eval(e.Row.DataItem, "AccountStatus").ToString();
+
+                DropDownList ddlRole = (DropDownList)e.Row.FindControl("ddlRole");
+                DropDownList ddlStatus = (DropDownList)e.Row.FindControl("ddlStatus");
+
+                if (ddlRole != null)
+                    ddlRole.SelectedValue = role;
+
+                if (ddlStatus != null)
+                    ddlStatus.SelectedValue = status;
+            }
         }
     }
 }
