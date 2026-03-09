@@ -6,23 +6,23 @@
 
 <head runat="server">
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title><%: Page.Title %> - SmartClicks</title>
+    <title><%: Page.Title %> - SmartClicks</title>
 
-<!-- Bootstrap -->
-<webopt:BundleReference runat="server" Path="~/Content/css" />
+    <!-- Bootstrap -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
 
-<!-- Custom CSS -->
-<link href="CSS/style.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="CSS/style.css" rel="stylesheet" />
 
-<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <!-- Favicon -->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
 
 <body style="background-color:#111; color:white;">
-
 <form runat="server">
 
 <!-- NAVBAR -->
