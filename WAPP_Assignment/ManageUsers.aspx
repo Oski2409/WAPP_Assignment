@@ -7,7 +7,7 @@
 
 <h2 class="text-warning mb-4">Manage Users</h2>
 
-<div class="card bg-dark text-white p-4 shadow">
+<div class="card bg-dark text-white shadow-lg border-0">
 
     <asp:GridView ID="gvUsers"
         runat="server"

@@ -126,6 +126,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
+    <Content Include="Images\videography.jpg" />
+    <Content Include="Images\portrait.jpg" />
+    <Content Include="Images\landscape.jpg" />
+    <Content Include="Images\hero-bg.jpeg" />
+    <Content Include="Images\learning-photography.jpeg" />
     <Content Include="Login.aspx" />
     <Content Include="ManageQuizzes.aspx" />
     <Content Include="ManageTutorials.aspx" />

@@ -33,7 +33,7 @@
         </p>
     </div>
 
-    <div class="card bg-dark text-white p-4 shadow-lg">
+    <div class="card bg-dark text-white p-4 shadow-lg mb-4">
         <h3>🚀 Why Choose SmartClicks?</h3>
         <p>
             Unlike random online tutorials, SmartClicks organizes content by categories, connects 

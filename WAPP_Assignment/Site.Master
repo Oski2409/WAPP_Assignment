@@ -3,119 +3,134 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head runat="server">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%: Page.Title %> - SmartClicks</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Modernizr -->
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
+<title><%: Page.Title %> - SmartClicks</title>
 
-    <!-- Bootstrap CSS -->
-    <webopt:BundleReference runat="server" path="~/Content/css" />
-    <link href="css/style.css" rel="stylesheet" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<!-- Bootstrap -->
+<webopt:BundleReference runat="server" Path="~/Content/css" />
+
+<!-- Custom CSS -->
+<link href="CSS/style.css" rel="stylesheet" />
+
+<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
 </head>
 
 <body style="background-color:#111; color:white;">
 
-    <form runat="server">
+<form runat="server">
 
-        <asp:ScriptManager runat="server">
-            <Scripts>
-                <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="WebFormsBundle" />
-            </Scripts>
-        </asp:ScriptManager>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark shadow">
 
-        <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark shadow">
-            <div class="container">
+<div class="container">
 
-                <!-- Logo -->
-                <a class="navbar-brand fw-bold text-warning" href="Default.aspx">
-                    SmartClicks
-                </a>
+<a class="navbar-brand fw-bold text-warning" href="Default.aspx">
+SmartClicks
+</a>
 
-                <!-- Mobile Toggle -->
-                <button class="navbar-toggler" type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
+<div class="collapse navbar-collapse" id="navbarNav">
 
-                        <!-- Always Visible -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="Default.aspx">Home</a>
-                        </li>
+<ul class="navbar-nav ms-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="About.aspx">About</a>
-                        </li>
+<li class="nav-item">
+<a class="nav-link" href="Default.aspx">Home</a>
+</li>
 
-                        <!-- MEMBER ONLY -->
-                        <li class="nav-item" runat="server" id="navTutorials">
-                            <a class="nav-link" href="Tutorials.aspx">Tutorials</a>
-                        </li>
+<li class="nav-item">
+<a class="nav-link" href="About.aspx">About</a>
+</li>
 
-                        <li class="nav-item" runat="server" id="navQuiz">
-                            <a class="nav-link" href="TakeQuiz.aspx">Quiz</a>
-                        </li>
+<!-- MEMBER ONLY -->
+<li class="nav-item" runat="server" id="navTutorials">
+<a class="nav-link" href="Tutorials.aspx">Tutorials</a>
+</li>
 
-                        <!-- GUEST ONLY -->
-                        <li class="nav-item" runat="server" id="navLogin">
-                            <a class="nav-link" href="Login.aspx">Login</a>
-                        </li>
+<li class="nav-item" runat="server" id="navQuiz">
+<a class="nav-link" href="Quiz.aspx">Quiz</a>
+</li>
 
-                        <li class="nav-item" runat="server" id="navRegister">
-                            <a class="nav-link" href="Register.aspx">Register</a>
-                        </li>
+<!-- GUEST ONLY -->
+<li class="nav-item" runat="server" id="navLogin">
+<a class="nav-link" href="Login.aspx">Login</a>
+</li>
 
-                        <li class="nav-item" runat="server" id="navProfile">
-                            <a class="nav-link" href="Profile.aspx">Profile</a>
-                        </li>
+<li class="nav-item" runat="server" id="navRegister">
+<a class="nav-link" href="Register.aspx">Register</a>
+</li>
 
-                        <!-- LOGOUT (MEMBER ONLY) -->
-                        <li class="nav-item" runat="server" id="navLogout">
-                            <asp:LinkButton ID="btnLogout"
-                                runat="server"
-                                CssClass="nav-link"
-                                OnClick="btnLogout_Click">
-                                Logout
-                            </asp:LinkButton>
-                        </li>
+<!-- PROFILE -->
+<li class="nav-item" runat="server" id="navProfile">
+<a class="nav-link" href="Profile.aspx">Profile</a>
+</li>
 
-                    </ul>
-                </div>
+<!-- LOGOUT -->
+<li class="nav-item" runat="server" id="navLogout">
+<asp:LinkButton
+ID="btnLogout"
+runat="server"
+CssClass="nav-link"
+OnClick="btnLogout_Click">
+Logout
+</asp:LinkButton>
+</li>
 
-            </div>
-        </nav>
+</ul>
 
-        <!-- MAIN CONTENT -->
-        <div class="container body-content mt-5">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+</div>
 
-            <hr class="bg-light" />
+</div>
 
-            <!-- FOOTER -->
-            <footer class="text-center py-3">
-                <p class="mb-0">&copy; 2026 SmartClicks | Photography Learning Platform</p>
-            </footer>
-        </div>
+</nav>
 
-    </form>
+<!-- MAIN CONTENT -->
+<div class="container body-content mt-5">
 
-    <!-- Bootstrap JS -->
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/bootstrap") %>
-    </asp:PlaceHolder>
+<asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+<hr class="bg-light" />
+
+<footer class="text-center py-3">
+<p class="mb-0">
+© 2026 SmartClicks | Photography Learning Platform
+</p>
+</footer>
+
+</div>
+
+</form>
+
+<!-- Bootstrap JS -->
+<asp:PlaceHolder runat="server">
+<%: Scripts.Render("~/bundles/bootstrap") %>
+</asp:PlaceHolder>
+
+<!-- Scroll Reveal Animation -->
+<script>
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+entry.target.classList.add('show');
+}
+});
+});
+
+document.querySelectorAll('.reveal').forEach(el => {
+observer.observe(el);
+});
+
+</script>
 
 </body>
+
 </html>

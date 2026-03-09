@@ -5,7 +5,7 @@
 <h2 class="text-warning mb-4">Manage Tutorials</h2>
 
 <!-- Add New Tutorial -->
-<div class="card bg-dark text-white p-4 mb-4 shadow">
+<div class="card bg-dark text-white shadow-lg border-0">
     <h4>Add New Tutorial</h4>
 
     <div class="row">
@@ -30,7 +30,7 @@
 </div>
 
 <!-- Display Tutorials -->
-<div class="card bg-dark text-white p-4 shadow">
+<div class="card bg-dark text-white shadow-lg border-0">
     <h4>Existing Tutorials</h4>
 
     <asp:GridView ID="gvTutorials"

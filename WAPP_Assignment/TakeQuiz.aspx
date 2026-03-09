@@ -9,7 +9,7 @@
     <asp:Repeater ID="rptQuestions" runat="server">
         <ItemTemplate>
 
-            <div class="card bg-dark text-white p-4 mb-4 shadow">
+            <div class="card bg-dark text-white shadow-lg border-0">
 
                 <h5><%# Eval("QuestionText") %></h5>
 
