@@ -4,9 +4,9 @@
 
     <h2 class="text-center mb-5">Browse Tutorial Categories</h2>
 
-    <div class="row justify-content-center">
+    <div class="row">
 
-        <div class="col-md-5 col-lg-3 mb-4">
+        <div class="col-md-6 col-lg-3 mb-4">
             <a href="CategoryTutorials.aspx?Category=Photography"
                class="text-decoration-none">
                 <div class="category-card text-center p-5 rounded">
@@ -15,7 +15,7 @@
             </a>
         </div>
 
-        <div class="col-md-5 col-lg-3 mb-4">
+        <div class="col-md-6 col-lg-3 mb-4">
             <a href="CategoryTutorials.aspx?Category=Videography"
                class="text-decoration-none">
                 <div class="category-card text-center p-5 rounded">
@@ -24,7 +24,7 @@
             </a>
         </div>
 
-        <div class="col-md-5 col-lg-3 mb-4">
+        <div class="col-md-6 col-lg-3 mb-4">
             <a href="CategoryTutorials.aspx?Category=Lighting"
                class="text-decoration-none">
                 <div class="category-card text-center p-5 rounded">
@@ -33,7 +33,7 @@
             </a>
         </div>
 
-        <div class="col-md-5 col-lg-3 mb-4">
+        <div class="col-md-6 col-lg-3 mb-4">
             <a href="CategoryTutorials.aspx?Category=Editing"
                class="text-decoration-none">
                 <div class="category-card text-center p-5 rounded">
