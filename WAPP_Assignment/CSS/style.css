@@ -20,11 +20,10 @@
     border: 1px solid #2a2a2a;
     transition: all 0.3s ease;
     color: white;
-    min-height: 150px;
+    height: 160px; /* force equal height */
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
     .category-card:hover 
@@ -81,11 +80,6 @@
         transform: scale(1.05);
         box-shadow: 0 0 15px #ffc10788;
     }
-
-.category-card h3 
-{
-    min-height: 48px;
-}
 
 .custom-input::placeholder 
 {
