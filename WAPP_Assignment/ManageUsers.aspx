@@ -13,6 +13,7 @@
     <div class="row mb-2">
         <div class="col"><asp:TextBox ID="txtNewFullName" runat="server" CssClass="form-control" Placeholder="Full Name" /></div>
         <div class="col"><asp:TextBox ID="txtNewEmail" runat="server" CssClass="form-control" Placeholder="Email" /></div>
+        <div class="col"><asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Password" /></div>
         <div class="col">
             <asp:DropDownList ID="ddlNewRole" runat="server" CssClass="form-select">
                 <asp:ListItem Value="RegisteredUser">RegisteredUser</asp:ListItem>
