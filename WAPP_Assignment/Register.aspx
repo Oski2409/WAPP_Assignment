@@ -31,6 +31,15 @@
                 runat="server"
                 TextMode="Password"
                 CssClass="form-control custom-input" />
+
+            <asp:RegularExpressionValidator
+                ID="revPassword"
+                runat="server"
+                ControlToValidate="txtPassword"
+                ValidationExpression="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                ErrorMessage="Password must be at least 8 characters and contain letters and numbers."
+                ForeColor="Red"
+                Display="Dynamic" />
         </div>
 
         <div class="mb-4">

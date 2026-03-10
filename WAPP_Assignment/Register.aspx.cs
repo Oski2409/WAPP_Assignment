@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace WAPP_Assignment.Pages
 {
@@ -13,6 +14,16 @@ namespace WAPP_Assignment.Pages
     {
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            string password = txtPassword.Text;
+
+            // Password rule: min 8 chars, letters + numbers
+            if (!Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"))
+            {
+                lblMessage.Text = "Password must be at least 8 characters and contain both letters and numbers.";
+                return;
+            }
+
+            // Check if passwords match
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
                 lblMessage.Text = "Passwords do not match.";
@@ -40,9 +51,9 @@ namespace WAPP_Assignment.Pages
 
                 // Insert new user
                 string insertQuery = @"INSERT INTO Users 
-                                       (FullName, Email, PasswordHash, Role, RegistrationDate, AccountStatus)
-                                       VALUES
-                                       (@FullName, @Email, @Password, 'RegisteredUser', GETDATE(), 'Active')";
+                               (FullName, Email, PasswordHash, Role, RegistrationDate, AccountStatus)
+                               VALUES
+                               (@FullName, @Email, @Password, 'RegisteredUser', GETDATE(), 'Active')";
 
                 SqlCommand cmd = new SqlCommand(insertQuery, conn);
                 cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
