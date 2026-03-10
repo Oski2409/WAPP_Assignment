@@ -53,8 +53,6 @@ namespace WAPP_Assignment
 
                     lblTitleBreadcrumb.Text = dr["Title"].ToString();
 
-                    lblCategory.Text = "Category ID: " + dr["CategoryID"].ToString();
-
                     imgTutorial.ImageUrl = dr["ImageURL"].ToString();
 
                     litContent.Text =
@@ -68,7 +66,6 @@ namespace WAPP_Assignment
                     litVideo.Text =
                         "<iframe src='" + videoURL + "' allowfullscreen></iframe>";
 
-                    lnkQuiz.NavigateUrl = "TakeQuiz.aspx?tutorial=" + tutorialID;
 
                 }
 

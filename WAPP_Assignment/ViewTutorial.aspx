@@ -50,14 +50,6 @@
 
 </div>
 
-<!-- Quiz Button -->
-<div class="text-center mb-5">
 
-    <asp:HyperLink ID="lnkQuiz" runat="server"
-        CssClass="btn btn-warning btn-lg">
-        Take Self-Assessment Quiz
-    </asp:HyperLink>
-
-</div>
 
 </asp:Content>
