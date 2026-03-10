@@ -32,11 +32,12 @@ namespace WAPP_Assignment.Pages
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = @"INSERT INTO Users (FullName, Email, Role, AccountStatus, RegistrationDate)
-                         VALUES (@FullName, @Email, @Role, @Status, GETDATE())";
+                string query = @"INSERT INTO Users (FullName, Email, PasswordHash, Role, AccountStatus, RegistrationDate)
+                                VALUES (@FullName, @Email, @Password, @Role, @Status, GETDATE())";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@FullName", txtNewFullName.Text);
                 cmd.Parameters.AddWithValue("@Email", txtNewEmail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtNewPassword.Text);
                 cmd.Parameters.AddWithValue("@Role", ddlNewRole.SelectedValue);
                 cmd.Parameters.AddWithValue("@Status", ddlNewStatus.SelectedValue);
                 conn.Open();
@@ -45,6 +46,7 @@ namespace WAPP_Assignment.Pages
 
             // Clear fields
             txtNewFullName.Text = txtNewEmail.Text = "";
+            txtNewPassword.Text = "";
             ddlNewRole.SelectedIndex = ddlNewStatus.SelectedIndex = 0;
 
             LoadUsers();
