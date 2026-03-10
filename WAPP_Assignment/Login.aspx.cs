@@ -38,7 +38,7 @@ namespace WAPP_Assignment.Pages
                     }
                     else
                     {
-                        Response.Redirect("Tutorials.aspx");
+                        Response.Redirect("Default.aspx");
                     }
                 }
                 else

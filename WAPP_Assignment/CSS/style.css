@@ -20,7 +20,7 @@
     border: 1px solid #2a2a2a;
     transition: all 0.3s ease;
     color: white;
-    height: 160px; /* force equal height */
+    height: 160px; /* equal height */
     display: flex;
     align-items: center;
     justify-content: center;
