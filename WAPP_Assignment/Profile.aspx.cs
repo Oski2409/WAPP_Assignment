@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace WAPP_Assignment.Pages
 {
@@ -54,6 +55,13 @@ namespace WAPP_Assignment.Pages
                 if (txtPassword.Text != txtConfirmPassword.Text)
                 {
                     lblMessage.Text = "Passwords do not match.";
+                    return;
+                }
+
+                // Password validation: minimum 8 characters, letters and numbers
+                if (!Regex.IsMatch(txtPassword.Text, @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"))
+                {
+                    lblMessage.Text = "Password must be at least 8 characters and contain both letters and numbers.";
                     return;
                 }
             }

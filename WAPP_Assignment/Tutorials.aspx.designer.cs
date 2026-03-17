@@ -15,40 +15,13 @@ namespace WAPP_Assignment.Pages
     {
 
         /// <summary>
-        /// btnPhoto control.
+        /// rptCategories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnPhoto;
-
-        /// <summary>
-        /// btnVideo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnVideo;
-
-        /// <summary>
-        /// btnLighting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLighting;
-
-        /// <summary>
-        /// btnEditing control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnEditing;
+        protected global::System.Web.UI.WebControls.Repeater rptCategories;
 
         /// <summary>
         /// rptTutorials control.

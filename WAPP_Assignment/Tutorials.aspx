@@ -8,57 +8,31 @@ Inherits="WAPP_Assignment.Pages.Tutorials" %>
 
 <div class="row mb-5 text-center">
 
-    <!-- Photography -->
-    <div class="col-md-3 mb-4">
-        <asp:LinkButton ID="btnPhoto" runat="server"
-        CssClass="category-card text-decoration-none d-block"
-        Style="font-size:1.6rem; padding:45px 20px;"
-        OnClick="FilterCategory">
+<asp:Repeater ID="rptCategories" runat="server">
 
-            <div style="font-size:2.5rem;">📸</div>
-            Photography
+<ItemTemplate>
 
-        </asp:LinkButton>
-    </div>
+<div class="col-md-3 mb-4">
 
-    <!-- Videography -->
-    <div class="col-md-3 mb-4">
-        <asp:LinkButton ID="btnVideo" runat="server"
-        CssClass="category-card text-decoration-none d-block"
-        Style="font-size:1.6rem; padding:45px 20px;"
-        OnClick="FilterCategory">
+<asp:LinkButton runat="server"
+CssClass="category-card text-decoration-none d-block"
+Style="font-size:1.6rem; padding:45px 20px;"
+CommandArgument='<%# Eval("CategoryID") %>'
+OnClick="FilterCategory">
 
-            <div style="font-size:2.5rem;">🎬</div>
-            Videography
+<div style="font-size:2.5rem;">
+<%# GetCategoryIcon(Eval("CategoryName").ToString()) %>
+</div>
 
-        </asp:LinkButton>
-    </div>
+<%# GetDisplayName(Eval("CategoryName").ToString()) %>
 
-    <!-- Lighting -->
-    <div class="col-md-3 mb-4">
-        <asp:LinkButton ID="btnLighting" runat="server"
-        CssClass="category-card text-decoration-none d-block"
-        Style="font-size:1.6rem; padding:45px 20px;"
-        OnClick="FilterCategory">
+</asp:LinkButton>
 
-            <div style="font-size:2.5rem;">💡</div>
-            Lighting
+</div>
 
-        </asp:LinkButton>
-    </div>
+</ItemTemplate>
 
-    <!-- Editing -->
-    <div class="col-md-3 mb-4">
-        <asp:LinkButton ID="btnEditing" runat="server"
-        CssClass="category-card text-decoration-none d-block"
-        Style="font-size:1.6rem; padding:45px 20px;"
-        OnClick="FilterCategory">
-
-            <div style="font-size:2.5rem;">🎨</div>
-            Editing
-
-        </asp:LinkButton>
-    </div>
+</asp:Repeater>
 
 </div>
 

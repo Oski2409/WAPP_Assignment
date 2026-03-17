@@ -21,6 +21,7 @@ namespace WAPP_Assignment.Pages
 
             if (!IsPostBack)
             {
+                LoadCategories();
                 LoadTutorials(0);
             }
 
@@ -58,27 +59,60 @@ namespace WAPP_Assignment.Pages
 
         }
 
+        public string GetCategoryIcon(string name)
+        {
+            if (name.Contains("Camera"))
+                return "📸";
+
+            if (name.Contains("Composition"))
+                return "🎬";
+
+            if (name.Contains("Lighting"))
+                return "💡";
+
+            if (name.Contains("Smartphone"))
+                return "🎨";
+
+            return "📷";
+        }
+
+        public string GetDisplayName(string dbName)
+        {
+            if (dbName.Contains("Camera"))
+                return "Photography";
+
+            if (dbName.Contains("Lighting"))
+                return "Lighting";
+
+            if (dbName.Contains("Composition"))
+                return "Videography";
+
+            if (dbName.Contains("Smartphone"))
+                return "Editing";
+
+            return dbName;
+        }
+
+        private void LoadCategories()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string query = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryName IS NOT NULL";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                rptCategories.DataSource = dt;
+                rptCategories.DataBind();
+            }
+        }
+
         protected void FilterCategory(object sender, EventArgs e)
         {
-
-            string buttonText = ((System.Web.UI.WebControls.LinkButton)sender).Text;
-
-            int categoryID = 0;
-
-            if (buttonText.Contains("Photography"))
-                categoryID = 1;
-
-            else if (buttonText.Contains("Videography"))
-                categoryID = 2;
-
-            else if (buttonText.Contains("Lighting"))
-                categoryID = 3;
-
-            else if (buttonText.Contains("Editing"))
-                categoryID = 4;
+            int categoryID = Convert.ToInt32(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
 
             LoadTutorials(categoryID);
-
         }
 
     }
