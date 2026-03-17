@@ -11,70 +11,61 @@ namespace WAPP_Assignment
 {
 
 
-    public partial class ViewTutorial
+    public partial class UserProgress
     {
 
         /// <summary>
-        /// lblTitleBreadcrumb control.
+        /// lblTotalQuizzes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitleBreadcrumb;
+        protected global::System.Web.UI.WebControls.Label lblTotalQuizzes;
 
         /// <summary>
-        /// lblTitle control.
+        /// lblCompleted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle;
+        protected global::System.Web.UI.WebControls.Label lblCompleted;
 
         /// <summary>
-        /// lblCategory control.
+        /// lblCompletionRate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
+        protected global::System.Web.UI.WebControls.Label lblCompletionRate;
 
         /// <summary>
-        /// Label2 control.
+        /// lblAvgScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblAvgScore;
 
         /// <summary>
-        /// imgTutorial control.
+        /// lblBestScore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgTutorial;
+        protected global::System.Web.UI.WebControls.Label lblBestScore;
 
         /// <summary>
-        /// litContent control.
+        /// progressBar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litContent;
-
-        /// <summary>
-        /// litVideo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litVideo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl progressBar;
     }
 }

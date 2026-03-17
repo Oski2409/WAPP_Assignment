@@ -182,6 +182,7 @@
     <Content Include="CSS\style.css" />
     <Content Include="TakeQuiz.aspx" />
     <Content Include="Tutorials.aspx" />
+    <Content Include="UserProgress.aspx" />
     <Content Include="ViewTutorial.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -319,6 +320,13 @@
     </Compile>
     <Compile Include="Tutorials.aspx.designer.cs">
       <DependentUpon>Tutorials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserProgress.aspx.cs">
+      <DependentUpon>UserProgress.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserProgress.aspx.designer.cs">
+      <DependentUpon>UserProgress.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewTutorial.aspx.cs">
       <DependentUpon>ViewTutorial.aspx</DependentUpon>

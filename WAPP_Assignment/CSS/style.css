@@ -174,3 +174,19 @@
 {
     color: #bbb;
 }
+
+/*Progress Page Styling*/
+
+.progress {
+    height: 25px;
+    border-radius: 10px;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.progress-bar {
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px;
+    color: #000;
+}

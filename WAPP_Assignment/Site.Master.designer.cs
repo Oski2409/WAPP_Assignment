@@ -33,6 +33,15 @@ namespace WAPP_Assignment
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navQuiz;
 
         /// <summary>
+        /// navProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navProgress;
+
+        /// <summary>
         /// navLogin control.
         /// </summary>
         /// <remarks>
