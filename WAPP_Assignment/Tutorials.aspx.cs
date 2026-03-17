@@ -61,36 +61,19 @@ namespace WAPP_Assignment.Pages
 
         public string GetCategoryIcon(string name)
         {
-            if (name.Contains("Camera"))
-                return "📸";
-
             if (name.Contains("Composition"))
-                return "🎬";
+                return "📐";
+
+            if (name.Contains("Photography"))
+                return "📷";
 
             if (name.Contains("Lighting"))
                 return "💡";
 
             if (name.Contains("Smartphone"))
-                return "🎨";
+                return "📱";
 
             return "📷";
-        }
-
-        public string GetDisplayName(string dbName)
-        {
-            if (dbName.Contains("Camera"))
-                return "Photography";
-
-            if (dbName.Contains("Lighting"))
-                return "Lighting";
-
-            if (dbName.Contains("Composition"))
-                return "Videography";
-
-            if (dbName.Contains("Smartphone"))
-                return "Editing";
-
-            return dbName;
         }
 
         private void LoadCategories()
