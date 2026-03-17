@@ -24,7 +24,7 @@ OnClick="FilterCategory">
 <%# GetCategoryIcon(Eval("CategoryName").ToString()) %>
 </div>
 
-<%# GetDisplayName(Eval("CategoryName").ToString()) %>
+<%# Eval("CategoryName") %>
 
 </asp:LinkButton>
 
