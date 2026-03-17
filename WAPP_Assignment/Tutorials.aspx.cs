@@ -60,25 +60,9 @@ namespace WAPP_Assignment.Pages
 
         protected void FilterCategory(object sender, EventArgs e)
         {
-
-            string buttonText = ((System.Web.UI.WebControls.LinkButton)sender).Text;
-
-            int categoryID = 0;
-
-            if (buttonText.Contains("Photography"))
-                categoryID = 1;
-
-            else if (buttonText.Contains("Videography"))
-                categoryID = 2;
-
-            else if (buttonText.Contains("Lighting"))
-                categoryID = 3;
-
-            else if (buttonText.Contains("Editing"))
-                categoryID = 4;
+            int categoryID = Convert.ToInt32(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
 
             LoadTutorials(categoryID);
-
         }
 
     }

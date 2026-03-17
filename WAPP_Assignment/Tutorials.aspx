@@ -13,6 +13,7 @@ Inherits="WAPP_Assignment.Pages.Tutorials" %>
         <asp:LinkButton ID="btnPhoto" runat="server"
         CssClass="category-card text-decoration-none d-block"
         Style="font-size:1.6rem; padding:45px 20px;"
+        CommandArgument="1"
         OnClick="FilterCategory">
 
             <div style="font-size:2.5rem;">📸</div>
@@ -26,6 +27,7 @@ Inherits="WAPP_Assignment.Pages.Tutorials" %>
         <asp:LinkButton ID="btnVideo" runat="server"
         CssClass="category-card text-decoration-none d-block"
         Style="font-size:1.6rem; padding:45px 20px;"
+        CommandArgument="2"
         OnClick="FilterCategory">
 
             <div style="font-size:2.5rem;">🎬</div>
@@ -39,6 +41,7 @@ Inherits="WAPP_Assignment.Pages.Tutorials" %>
         <asp:LinkButton ID="btnLighting" runat="server"
         CssClass="category-card text-decoration-none d-block"
         Style="font-size:1.6rem; padding:45px 20px;"
+        CommandArgument="3"
         OnClick="FilterCategory">
 
             <div style="font-size:2.5rem;">💡</div>
@@ -52,6 +55,7 @@ Inherits="WAPP_Assignment.Pages.Tutorials" %>
         <asp:LinkButton ID="btnEditing" runat="server"
         CssClass="category-card text-decoration-none d-block"
         Style="font-size:1.6rem; padding:45px 20px;"
+        CommandArgument="4"
         OnClick="FilterCategory">
 
             <div style="font-size:2.5rem;">🎨</div>
