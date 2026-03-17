@@ -126,7 +126,11 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Home.aspx" />
+    <Content Include="Images\Aperture.jpg" />
+    <Content Include="Images\ISO.jpg" />
+    <Content Include="Images\Natural Lighting.jpg" />
+    <Content Include="Images\RuleOfThirds.jpg" />
+    <Content Include="Images\Smartphone.jpg" />
     <Content Include="Images\videography.jpg" />
     <Content Include="Images\portrait.jpg" />
     <Content Include="Images\landscape.jpg" />
@@ -223,13 +227,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
