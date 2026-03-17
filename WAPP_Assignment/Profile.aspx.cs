@@ -22,6 +22,7 @@ namespace WAPP_Assignment.Pages
             if (!IsPostBack)
             {
                 LoadUserData();
+                LoadBadges();
             }
         }
 
@@ -105,6 +106,30 @@ namespace WAPP_Assignment.Pages
             }
 
             lblMessage.Text = "Profile updated successfully!";
+        }
+        private void LoadBadges()
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                string query = @"SELECT B.BadgeName
+                         FROM UserBadges UB
+                         JOIN Badges B ON UB.BadgeID = B.BadgeID
+                         WHERE UB.UserID = @UserID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                System.Data.DataTable dt = new System.Data.DataTable();
+                da.Fill(dt);
+
+                rptBadges.DataSource = dt;
+                rptBadges.DataBind();
+            }
         }
     }
 }

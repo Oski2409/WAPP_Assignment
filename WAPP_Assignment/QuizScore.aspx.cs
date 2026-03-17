@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WAPP_Assignment
 {
     public partial class QuizScore : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-
         {
             if (Session["UserID"] == null)
             {
@@ -23,6 +17,7 @@ namespace WAPP_Assignment
             {
                 int score = Convert.ToInt32(Request.QueryString["score"]);
                 int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
+                int userId = Convert.ToInt32(Session["UserID"]);
 
                 lblScore.Text = score + "%";
 
@@ -32,23 +27,35 @@ namespace WAPP_Assignment
                 {
                     conn.Open();
 
-                    // Get Quiz Title
+                    // 🔹 SAVE QUIZ ATTEMPT
+                    string insertQuery = @"INSERT INTO QuizAttempts (UserID, QuizID, Score)
+                                           VALUES (@UserID, @QuizID, @Score)";
+
+                    SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
+                    insertCmd.Parameters.AddWithValue("@UserID", userId);
+                    insertCmd.Parameters.AddWithValue("@QuizID", quizId);
+                    insertCmd.Parameters.AddWithValue("@Score", score);
+                    insertCmd.ExecuteNonQuery();
+
+                    // 🔹 GET QUIZ TITLE
                     SqlCommand quizCmd = new SqlCommand(
                         "SELECT Title FROM Quizzes WHERE QuizID=@QuizID", conn);
 
                     quizCmd.Parameters.AddWithValue("@QuizID", quizId);
-
                     lblQuizTitle.Text = quizCmd.ExecuteScalar().ToString();
 
-                    // Count Questions
+                    // 🔹 COUNT QUESTIONS
                     SqlCommand qCount = new SqlCommand(
                         "SELECT COUNT(*) FROM Questions WHERE QuizID=@QuizID", conn);
 
                     qCount.Parameters.AddWithValue("@QuizID", quizId);
-
                     lblTotalQuestions.Text = qCount.ExecuteScalar().ToString();
                 }
 
+                // 🔥 AWARD BADGES
+                CheckAndAwardBadges(userId);
+
+                // 🔹 MESSAGE
                 if (score >= 80)
                 {
                     lblMessage.Text = "Excellent work! You have strong knowledge of this topic.";
@@ -63,8 +70,59 @@ namespace WAPP_Assignment
                 }
             }
         }
+            private void CheckAndAwardBadges(int userId)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                // Total Score
+                string scoreQuery = "SELECT ISNULL(SUM(Score),0) FROM QuizAttempts WHERE UserID=@UserID";
+                SqlCommand cmdScore = new SqlCommand(scoreQuery, conn);
+                cmdScore.Parameters.AddWithValue("@UserID", userId);
+                int totalScore = Convert.ToInt32(cmdScore.ExecuteScalar());
+
+                // Attempt Count
+                string countQuery = "SELECT COUNT(*) FROM QuizAttempts WHERE UserID=@UserID";
+                SqlCommand cmdCount = new SqlCommand(countQuery, conn);
+                cmdCount.Parameters.AddWithValue("@UserID", userId);
+                int attempts = Convert.ToInt32(cmdCount.ExecuteScalar());
+
+                // Award badges
+                if (attempts >= 1) AwardBadge(userId, 1);
+                if (attempts >= 5) AwardBadge(userId, 2);
+                if (totalScore >= 100) AwardBadge(userId, 3);
+                if (totalScore >= 300) AwardBadge(userId, 4);
+            }
+        }
+
+        private void AwardBadge(int userId, int badgeId)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                string checkQuery = "SELECT COUNT(*) FROM UserBadges WHERE UserID=@U AND BadgeID=@B";
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@U", userId);
+                checkCmd.Parameters.AddWithValue("@B", badgeId);
+
+                int exists = (int)checkCmd.ExecuteScalar();
+
+                if (exists == 0)
+                {
+                    string insertQuery = "INSERT INTO UserBadges (UserID, BadgeID) VALUES (@U, @B)";
+                    SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
+                    insertCmd.Parameters.AddWithValue("@U", userId);
+                    insertCmd.Parameters.AddWithValue("@B", badgeId);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
-    
-
     

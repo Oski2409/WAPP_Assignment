@@ -137,6 +137,7 @@
     <Content Include="Images\hero-bg.jpeg" />
     <Content Include="Images\learning-photography.jpeg" />
     <Content Include="Images\about-photography.jpg" />
+    <Content Include="Leaderboard.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManageQuizzes.aspx" />
     <Content Include="ManageTutorials.aspx" />
@@ -145,6 +146,7 @@
     <Content Include="Quiz.aspx" />
     <Content Include="QuizScore.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="ReportDownload.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -229,6 +231,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Leaderboard.aspx.cs">
+      <DependentUpon>Leaderboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Leaderboard.aspx.designer.cs">
+      <DependentUpon>Leaderboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -285,6 +294,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportDownload.aspx.cs">
+      <DependentUpon>ReportDownload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportDownload.aspx.designer.cs">
+      <DependentUpon>ReportDownload.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

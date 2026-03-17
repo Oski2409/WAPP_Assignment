@@ -63,7 +63,9 @@
         My Progress
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="Leaderboard.aspx">Leaderboard</a>
+</li>
 
     <!-- GUEST ONLY -->
         <li class="nav-item" runat="server" id="navLogin">

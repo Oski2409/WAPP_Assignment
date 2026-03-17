@@ -50,6 +50,18 @@
                 OnClick="btnUpdate_Click" />
         </div>
 
+        <div>
+            <h3 class="text-warning mt-4">🎖️ My Badges</h3>
+
+<asp:Repeater ID="rptBadges" runat="server">
+    <ItemTemplate>
+        <span class="badge bg-warning text-dark m-2 p-2">
+            <%# Eval("BadgeName") %>
+        </span>
+    </ItemTemplate>
+</asp:Repeater>
+        </div>
+
     </div>
 
 </div>
