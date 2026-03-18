@@ -2,181 +2,180 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
 
-<div class="login-wrapper d-flex justify-content-center align-items-center">
+    <div class="login-wrapper d-flex justify-content-center align-items-center">
 
-    <div class="login-card p-5 shadow-lg">
+        <div class="login-card p-5 shadow-lg">
 
-        <h2 class="text-center mb-4">My Profile</h2>
+            <h2 class="text-center mb-4">My Profile</h2>
 
-        <asp:Label ID="lblMessage"
-            runat="server"
-            CssClass="text-success text-center d-block mb-3" />
-
-        <div class="mb-3">
-            <label>Full Name</label>
-            <asp:TextBox ID="txtFullName"
+            <asp:Label ID="lblMessage"
                 runat="server"
-                CssClass="form-control custom-input" />
-        </div>
-
-        <div class="mb-3">
-            <label>Email</label>
-            <asp:TextBox ID="txtEmail"
-                runat="server"
-                CssClass="form-control custom-input" />
-        </div>
-
-        <hr />
-
-        <h5 class="mb-3">Change Password</h5>
-
-        <!-- Current Password -->
-        <div class="mb-3">
-            <label>Current Password</label>
-            <div class="input-group">
-                <asp:TextBox ID="txtCurrentPassword"
-                    runat="server"
-                    TextMode="Password"
-                    CssClass="form-control custom-input"
-                    Style="background-color:#2a2a2a;color:white;" />
-
-                <button type="button"
-                    class="btn btn-outline-secondary"
-                    onclick="toggleVisibility(this)">
-                    <i class="bi bi-eye"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Send OTP -->
-        <div class="mb-3">
-            <asp:Button ID="btnSendOtp"
-                runat="server"
-                Text="Send OTP to Email"
-                CssClass="btn btn-secondary w-100"
-                OnClick="btnSendOtp_Click" />
-        </div>
-
-        <!-- OTP Section -->
-        <div class="mb-3"
-            id="otpSection"
-            runat="server"
-            visible="false">
-
-            <label>Enter OTP</label>
-
-            <asp:TextBox ID="txtOtp"
-                runat="server"
-                CssClass="form-control custom-input"
-                placeholder="6-digit code"
-                MaxLength="6" />
-
-            <small class="text-muted">
-                OTP expires in 5 minutes.
-            </small>
-
-        </div>
-
-        <!-- New Password Section -->
-        <div id="newPasswordSection"
-            runat="server"
-            visible="false">
+                CssClass="text-success text-center d-block mb-3" />
 
             <div class="mb-3">
+                <label>Full Name</label>
+                <asp:TextBox ID="txtFullName"
+                    runat="server"
+                    CssClass="form-control custom-input" />
+            </div>
 
-                <label>New Password</label>
+            <div class="mb-3">
+                <label>Email</label>
+                <asp:TextBox ID="txtEmail"
+                    runat="server"
+                    CssClass="form-control custom-input" />
+            </div>
 
+            <hr />
+
+            <h5 class="mb-3">Change Password</h5>
+
+            <!-- Current Password -->
+            <div class="mb-3">
+                <label>Current Password</label>
                 <div class="input-group">
-
-                    <asp:TextBox ID="txtPassword"
+                    <asp:TextBox ID="txtCurrentPassword"
                         runat="server"
                         TextMode="Password"
-                        CssClass="form-control custom-input" />
+                        CssClass="form-control custom-input"
+                        Style="background-color: #2a2a2a; color: white;" />
 
                     <button type="button"
                         class="btn btn-outline-secondary"
-                        onclick="togglePassword('txtPassword',this)">
+                        onclick="toggleVisibility(this)">
                         <i class="bi bi-eye"></i>
                     </button>
-
                 </div>
-
             </div>
 
-            <div class="mb-4">
-
-                <label>Confirm New Password</label>
-
-                <div class="input-group">
-
-                    <asp:TextBox ID="txtConfirmPassword"
-                        runat="server"
-                        TextMode="Password"
-                        CssClass="form-control custom-input" />
-
-                    <button type="button"
-                        class="btn btn-outline-secondary"
-                        onclick="togglePassword('txtConfirmPassword',this)">
-                        <i class="bi bi-eye"></i>
-                    </button>
-
-                </div>
-
+            <!-- Send OTP -->
+            <div class="mb-3">
+                <asp:Button ID="btnSendOtp"
+                    runat="server"
+                    Text="Send OTP to Email"
+                    CssClass="btn btn-secondary w-100"
+                    OnClick="btnSendOtp_Click" />
             </div>
 
-        </div>
-
-        <!-- Update Button -->
-        <div class="text-center">
-
-            <asp:Button ID="btnUpdate"
+            <!-- OTP Section -->
+            <div class="mb-3"
+                id="otpSection"
                 runat="server"
-                Text="Update Profile"
-                CssClass="btn custom-login-btn"
-                OnClick="btnUpdate_Click" />
+                Visible="false">
 
-        </div>
+                <label>Enter OTP</label>
 
-        <hr />
+                <asp:TextBox ID="txtOtp"
+                    runat="server"
+                    CssClass="form-control custom-input"
+                    placeholder="6-digit code"
+                    MaxLength="6" />
 
-        <!-- BADGES SECTION -->
-        <h3 class="text-warning mt-4 mb-3">🏅 My Badges</h3>
+                <small class="text-muted">OTP expires in 5 minutes.
+                </small>
 
-        <div class="d-flex flex-wrap gap-3">
+            </div>
 
-            <asp:Repeater ID="rptBadges"
-                runat="server">
+            <!-- New Password Section -->
+            <div id="newPasswordSection"
+                runat="server"
+                Visible="false">
 
-                <ItemTemplate>
+                <div class="mb-3">
 
-                    <div class="badge-card p-3 shadow">
+                    <label>New Password</label>
 
-                        <div class="badge-icon">
-                            🏅
-                        </div>
+                    <div class="input-group">
 
-                        <div class="badge-title">
-                            <%# Eval("BadgeName") %>
-                        </div>
+                        <asp:TextBox ID="txtPassword"
+                            runat="server"
+                            TextMode="Password"
+                            CssClass="form-control custom-input" />
 
-                        <div class="badge-desc">
-                            <%# Eval("Description") %>
-                        </div>
+                        <button type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="toggleVisibility(this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
 
                     </div>
 
-                </ItemTemplate>
+                </div>
 
-            </asp:Repeater>
+                <div class="mb-4">
+
+                    <label>Confirm New Password</label>
+
+                    <div class="input-group">
+
+                        <asp:TextBox ID="txtConfirmPassword"
+                            runat="server"
+                            TextMode="Password"
+                            CssClass="form-control custom-input" />
+
+                        <button type="button"
+                            class="btn btn-outline-secondary"
+                            onclick="toggleVisibility(this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Update Button -->
+            <div class="text-center">
+
+                <asp:Button ID="btnUpdate"
+                    runat="server"
+                    Text="Update Profile"
+                    CssClass="btn custom-login-btn"
+                    OnClick="btnUpdate_Click" />
+
+            </div>
+
+            <hr />
+
+            <!-- BADGES SECTION -->
+            <h3 class="text-warning mt-4 mb-3">🏅 My Badges</h3>
+
+            <div class="d-flex flex-wrap gap-3">
+
+                <asp:Repeater ID="rptBadges"
+                    runat="server">
+
+                    <ItemTemplate>
+
+                        <div class="badge-card p-3 shadow">
+
+                            <div class="badge-icon">
+                                🏅
+                            </div>
+
+                            <div class="badge-title">
+                                <%# Eval("BadgeName") %>
+                            </div>
+
+                            <div class="badge-desc">
+                                <%# Eval("Description") %>
+                            </div>
+
+                        </div>
+
+                    </ItemTemplate>
+
+                </asp:Repeater>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
-
-<script>
+    <script type="text/javascript">
 
 function toggleVisibility(btn)
 {
@@ -194,6 +193,6 @@ function toggleVisibility(btn)
     }
 }
 
-</script>
+    </script>
 
 </asp:Content>
