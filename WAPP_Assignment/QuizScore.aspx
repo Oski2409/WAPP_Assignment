@@ -36,6 +36,7 @@
                 <h1 class="display-4 text-warning">
     <asp:Label ID="lblScore" runat="server"></asp:Label>
 </h1>
+                <asp:Label ID="lblDetails" runat="server" CssClass="text-light d-block mt-2" />
 
                 <p class="mt-3">
     <asp:Label ID="lblMessage" runat="server"></asp:Label>
@@ -51,6 +52,32 @@
 
             </div>
         </div>
+        <h4 class="mt-4">Review Your Answers</h4>
+
+<asp:Repeater ID="rptReview" runat="server">
+    <ItemTemplate>
+        <div class="card bg-dark text-white p-3 mb-2">
+
+            <p><strong><%# Eval("Question") %></strong></p>
+
+            <p>
+    Your Answer:
+    <span class='<%# (bool)Eval("IsCorrect") ? "text-success" : "text-danger" %>'>
+        <%# Eval("UserAnswer") %>
+    </span>
+
+    <%# (bool)Eval("IsCorrect") ? "✔" : "✘" %>
+</p>
+
+<p>
+    Correct Answer:
+    <span class="text-warning">
+        <%# Eval("CorrectAnswer") %>
+    </span>
+</p>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
     </div>
 

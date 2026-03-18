@@ -42,6 +42,15 @@ namespace WAPP_Assignment
         protected global::System.Web.UI.WebControls.Label lblScore;
 
         /// <summary>
+        /// lblDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDetails;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -49,5 +58,14 @@ namespace WAPP_Assignment
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
+        /// rptReview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptReview;
     }
 }

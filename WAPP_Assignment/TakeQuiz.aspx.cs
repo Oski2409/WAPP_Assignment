@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -53,22 +55,50 @@ namespace WAPP_Assignment.Pages
             int score = 0;
             int totalQuestions = rptQuestions.Items.Count;
 
+            List<string> userAnswers = new List<string>();
+            List<string> correctAnswers = new List<string>();
+            List<string> questions = new List<string>();
+
             foreach (RepeaterItem item in rptQuestions.Items)
             {
                 RadioButtonList rbl = (RadioButtonList)item.FindControl("rblOptions");
                 HiddenField hf = (HiddenField)item.FindControl("hfCorrectAnswer");
+                Label lblQ = (Label)item.FindControl("lblQuestionText");
 
-                if (rbl.SelectedValue == hf.Value)
+                if (string.IsNullOrEmpty(rbl.SelectedValue))
+                {
+                    lblError.Text = "⚠ Please answer all questions before submitting.";
+                    return;
+                }
+
+                string selectedValue = rbl.SelectedValue;
+
+                string selectedText = rbl.Items.FindByValue(selectedValue).Text;
+                string correctText = rbl.Items.FindByValue(hf.Value).Text;
+
+                userAnswers.Add(selectedText);
+                correctAnswers.Add(correctText);
+                questions.Add(lblQ.Text);
+
+                if (selectedValue == hf.Value)
                 {
                     score++;
                 }
             }
 
-            int finalScore = (score * 100) / totalQuestions;
+            // ✅ AFTER LOOP ONLY
+            int finalScore = totalQuestions == 0 ? 0 : (score * 100) / totalQuestions;
+
+            Session["UserAnswers"] = userAnswers;
+            Session["CorrectAnswers"] = correctAnswers;
+            Session["Questions"] = questions;
+            Session["TotalQuestions"] = totalQuestions;
+            Session["Score"] = score;
+            Session["Percentage"] = finalScore;
 
             SaveAttempt(finalScore);
 
-            Response.Redirect("QuizScore.aspx?score=" + finalScore + "&quizId=" + quizId);
+            Response.Redirect("QuizScore.aspx?quizId=" + quizId);
         }
 
         private void SaveAttempt(int score)

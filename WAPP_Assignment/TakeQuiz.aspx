@@ -11,7 +11,8 @@
 
             <div class="card bg-dark text-white shadow-lg border-0">
 
-                <h5><%# Eval("QuestionText") %></h5>
+               <asp:Label ID="lblQuestionText" runat="server"
+    Text='<%# Eval("QuestionText") %>' />
 
                 <asp:RadioButtonList ID="rblOptions"
                     runat="server"
@@ -27,6 +28,8 @@
 
         </ItemTemplate>
     </asp:Repeater>
+
+    <asp:Label ID="lblError" runat="server" CssClass="text-danger fw-bold mb-2" />
 
     <asp:Button ID="btnSubmit"
         runat="server"

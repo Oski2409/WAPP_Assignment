@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 
@@ -15,11 +16,19 @@ namespace WAPP_Assignment
 
             if (!IsPostBack)
             {
-                int score = Convert.ToInt32(Request.QueryString["score"]);
+                int score = Convert.ToInt32(Session["Score"]);              // correct answers
+                int total = Convert.ToInt32(Session["TotalQuestions"]);     // total questions
+                int percentage = Convert.ToInt32(Session["Percentage"]);    // % score
+
+                int wrong = total - score;
+
+                lblScore.Text = $"{score} / {total}";
+                lblDetails.Text = $"Correct: {score} | Wrong: {wrong} | {percentage}%";
+
                 int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
                 int userId = Convert.ToInt32(Session["UserID"]);
 
-                lblScore.Text = score + "%";
+                
 
                 string connStr = ConfigurationManager.ConnectionStrings["SmartClicksDB"].ConnectionString;
 
@@ -27,15 +36,7 @@ namespace WAPP_Assignment
                 {
                     conn.Open();
 
-                    // 🔹 SAVE QUIZ ATTEMPT
-                    string insertQuery = @"INSERT INTO QuizAttempts (UserID, QuizID, Score)
-                                           VALUES (@UserID, @QuizID, @Score)";
-
-                    SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-                    insertCmd.Parameters.AddWithValue("@UserID", userId);
-                    insertCmd.Parameters.AddWithValue("@QuizID", quizId);
-                    insertCmd.Parameters.AddWithValue("@Score", score);
-                    insertCmd.ExecuteNonQuery();
+                   
 
                     // 🔹 GET QUIZ TITLE
                     SqlCommand quizCmd = new SqlCommand(
@@ -56,17 +57,44 @@ namespace WAPP_Assignment
                 CheckAndAwardBadges(userId);
 
                 // 🔹 MESSAGE
-                if (score >= 80)
+                if (percentage >= 80)
                 {
                     lblMessage.Text = "Excellent work! You have strong knowledge of this topic.";
                 }
-                else if (score >= 50)
+                else if (percentage >= 50)
                 {
                     lblMessage.Text = "Good attempt! Review the tutorial to improve.";
                 }
                 else
                 {
                     lblMessage.Text = "Keep practicing! Try reviewing the tutorial again.";
+                }
+
+
+                var questions = Session["Questions"] as List<string>;
+                var userAnswers = Session["UserAnswers"] as List<string>;
+                var correctAnswers = Session["CorrectAnswers"] as List<string>;
+
+                var reviewList = new List<dynamic>();
+                Response.Write("Questions count: " + questions.Count);
+
+                if (questions != null && userAnswers != null && correctAnswers != null)
+                {
+                   
+
+                    for (int i = 0; i < questions.Count; i++)
+                    {
+                        reviewList.Add(new
+                        {
+                            Question = questions[i],
+                            UserAnswer = userAnswers[i],
+                            CorrectAnswer = correctAnswers[i],
+                            IsCorrect = userAnswers[i] == correctAnswers[i]
+                        });
+                    }
+
+                    rptReview.DataSource = reviewList;
+                    rptReview.DataBind();
                 }
             }
         }
