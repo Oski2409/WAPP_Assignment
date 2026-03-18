@@ -190,6 +190,15 @@
     line-height: 25px;
     color: #000;
 }
+.card.bg-secondary {
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+    .card.bg-secondary:hover {
+        transform: scale(1.02);
+    }
+
 
 /* Badge Card */
 .badge-card {

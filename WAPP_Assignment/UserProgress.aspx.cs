@@ -72,7 +72,38 @@ namespace WAPP_Assignment
 
                 progressBar.Style["width"] = completionRate + "%";
                 progressBar.InnerText = completionRate + "%";
+
+
+                // Load quiz breakdown
+                SqlCommand breakdownCmd = new SqlCommand(@"
+                SELECT q.Title AS QuizTitle,
+                       MAX(qa.Score) AS Score
+                FROM QuizAttempts qa
+                INNER JOIN Quizzes q ON qa.QuizID = q.QuizID
+                WHERE qa.UserID = @UserID
+                GROUP BY q.Title
+            ", conn);
+
+                breakdownCmd.Parameters.AddWithValue("@UserID", userId);
+
+                SqlDataReader reader = breakdownCmd.ExecuteReader();
+
+                List<dynamic> quizList = new List<dynamic>();
+
+                while (reader.Read())
+                {
+                    quizList.Add(new
+                    {
+                        QuizTitle = reader["QuizTitle"].ToString(),
+                        Score = reader["Score"].ToString()
+                    });
+                }
+
+                rptQuizBreakdown.DataSource = quizList;
+                rptQuizBreakdown.DataBind();
             }
+
+
         }
     }
 }

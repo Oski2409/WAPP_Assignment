@@ -26,6 +26,37 @@ Inherits="WAPP_Assignment.UserProgress" %>
             </div>
         </div>
 
+        <!-- QUIZ BREAKDOWN -->
+<div class="mt-4">
+
+    <button class="btn btn-outline-warning w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#quizBreakdown">
+        ▼ View Completed Quizzes
+    </button>
+
+    <div class="collapse" id="quizBreakdown">
+
+        <asp:Repeater ID="rptQuizBreakdown" runat="server">
+            <ItemTemplate>
+
+                <div class="card bg-secondary text-white p-3 mb-2 shadow-sm">
+
+                    <h6 class="mb-1">
+                        <%# Eval("QuizTitle") %>
+                    </h6>
+
+                    <p class="mb-0 text-warning">
+                        Score: <%# Eval("Score") %>%
+                    </p>
+
+                </div>
+
+            </ItemTemplate>
+        </asp:Repeater>
+
+    </div>
+
+</div>
+
     </div>
 
 </div>
