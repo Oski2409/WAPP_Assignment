@@ -76,67 +76,40 @@
 
             </div>
 
-            <!-- New Password Section -->
-            <div id="newPasswordSection"
-                runat="server"
-                Visible="false">
-
-                <div class="mb-3">
-
-                    <label>New Password</label>
-
-                    <div class="input-group">
-
-                        <asp:TextBox ID="txtPassword"
-                            runat="server"
-                            TextMode="Password"
-                            CssClass="form-control custom-input" />
-
-                        <button type="button"
-                            class="btn btn-outline-secondary"
-                            onclick="toggleVisibility(this)">
-                            <i class="bi bi-eye"></i>
-                        </button>
-
-                    </div>
-
+        <%-- New password fields - hidden until OTP sent --%>
+        <div id="newPasswordSection" runat="server" visible="false">
+            <div class="mb-3">
+                <label>New Password</label>
+                <div class="input-group">
+                    <asp:TextBox ID="txtPassword" runat="server"
+                        TextMode="Password"
+                        CssClass="form-control custom-input" />
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="togglePassword('txtPassword', this)">
+                        <i class="bi bi-eye"></i>
+                    </button>
                 </div>
-
-                <div class="mb-4">
-
-                    <label>Confirm New Password</label>
-
-                    <div class="input-group">
-
-                        <asp:TextBox ID="txtConfirmPassword"
-                            runat="server"
-                            TextMode="Password"
-                            CssClass="form-control custom-input" />
-
-                        <button type="button"
-                            class="btn btn-outline-secondary"
-                            onclick="toggleVisibility(this)">
-                            <i class="bi bi-eye"></i>
-                        </button>
-
-                    </div>
-
+            </div>
+            <div class="mb-4">
+                <label>Confirm New Password</label>
+                <div class="input-group">
+                    <asp:TextBox ID="txtConfirmPassword" runat="server"
+                        TextMode="Password"
+                        CssClass="form-control custom-input" />
+                    <button type="button" class="btn btn-outline-secondary"
+                        onclick="togglePassword('txtConfirmPassword', this)">
+                        <i class="bi bi-eye"></i>
+                    </button>
                 </div>
-
             </div>
+        </div>
 
-            <!-- Update Button -->
-            <div class="text-center">
+        <div class="text-center">
+            <asp:Button ID="btnUpdate" runat="server" Text="Update Profile"
+                CssClass="btn custom-login-btn"
+                OnClick="btnUpdate_Click" />
+        </div>
 
-                <asp:Button ID="btnUpdate"
-                    runat="server"
-                    Text="Update Profile"
-                    CssClass="btn custom-login-btn"
-                    OnClick="btnUpdate_Click" />
-
-            </div>
-
-            <hr />
 
             <!-- BADGES SECTION -->
             <h3 class="text-warning mt-4 mb-3">🏅 My Badges</h3>
@@ -170,9 +143,9 @@
 
             </div>
 
-        </div>
-
+>>>>>>> 1a188ae115f9dc6f3b5a22266dd702425d74e047
     </div>
+</div>
 
 
     <script type="text/javascript">
