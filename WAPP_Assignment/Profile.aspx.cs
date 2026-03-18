@@ -115,10 +115,10 @@ namespace WAPP_Assignment.Pages
             {
                 conn.Open();
 
-                string query = @"SELECT B.BadgeName
-                         FROM UserBadges UB
-                         JOIN Badges B ON UB.BadgeID = B.BadgeID
-                         WHERE UB.UserID = @UserID";
+                string query = @"SELECT B.BadgeName, B.Description
+                 FROM UserBadges UB
+                 JOIN Badges B ON UB.BadgeID = B.BadgeID
+                 WHERE UB.UserID = @UserID";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@UserID", Session["UserID"]);
