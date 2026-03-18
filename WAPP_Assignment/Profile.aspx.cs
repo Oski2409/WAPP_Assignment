@@ -17,15 +17,12 @@ namespace WAPP_Assignment.Pages
 
             if (!IsPostBack)
                 LoadUserData();
-<<<<<<< HEAD
 
             if (Session["OTP"] != null)
             {
                 otpSection.Visible = true;
                 newPasswordSection.Visible = true;
-=======
                 LoadBadges();
->>>>>>> 1a188ae115f9dc6f3b5a22266dd702425d74e047
             }
         }
 
