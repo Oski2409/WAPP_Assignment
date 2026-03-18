@@ -81,8 +81,7 @@
                 CssClass="btn custom-login-btn"
                 OnClick="btnUpdate_Click" />
         </div>
-<<<<<<< HEAD
-=======
+
 
         <div>
            <h3 class="text-warning mt-4 mb-3">🏅 My Badges</h3>
@@ -106,7 +105,6 @@
 </div>
         </div>
 
->>>>>>> 1a188ae115f9dc6f3b5a22266dd702425d74e047
     </div>
 </div>
 
