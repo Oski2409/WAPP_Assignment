@@ -81,6 +81,32 @@
                 CssClass="btn custom-login-btn"
                 OnClick="btnUpdate_Click" />
         </div>
+<<<<<<< HEAD
+=======
+
+        <div>
+           <h3 class="text-warning mt-4 mb-3">🏅 My Badges</h3>
+
+<div class="d-flex flex-wrap gap-3">
+
+<asp:Repeater ID="rptBadges" runat="server">
+    <ItemTemplate>
+        <div class="badge-card p-3 shadow">
+            <div class="badge-icon">🏅</div>
+            <div class="badge-title">
+                <%# Eval("BadgeName") %>
+            </div>
+            <div class="badge-desc">
+                <%# Eval("Description") %>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+
+</div>
+        </div>
+
+>>>>>>> 1a188ae115f9dc6f3b5a22266dd702425d74e047
     </div>
 </div>
 

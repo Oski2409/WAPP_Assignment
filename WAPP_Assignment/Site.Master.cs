@@ -24,6 +24,7 @@ namespace WAPP_Assignment
                 navQuiz.Visible = false;
                 navProfile.Visible = false;
                 navLogout.Visible = false;
+                navProgress.Visible = false;
             }
             else
             {
@@ -33,6 +34,7 @@ namespace WAPP_Assignment
 
                 navProfile.Visible = true;
                 navLogout.Visible = true;
+                navProgress.Visible = true;
 
                 if (role == "Admin")
                 {

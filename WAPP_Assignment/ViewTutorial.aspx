@@ -27,6 +27,13 @@
     </p>
 </div>
 
+<h3> testing </h3>
+
+    <p class="text-muted">
+        <asp:Label ID="Label2" runat="server"></asp:Label>
+    </p>
+</div>
+
 <!-- Tutorial Image -->
 <div class="mb-4 text-center">
     <asp:Image ID="imgTutorial" runat="server"

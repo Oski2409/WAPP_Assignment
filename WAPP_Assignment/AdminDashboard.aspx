@@ -35,7 +35,15 @@
         </a>
     </div>
 </div>
-
+<div class="col-md-4 mb-4">
+    <div class="card admin-card shadow-lg border-0">
+            <h4>📄 Reports</h4>
+            <p>Download system reports and analytics.</p>
+            <a href="ReportDownload.aspx" class="btn btn-warning mt-3">
+                Open
+            </a>
+        </div>
+</div>
 </div>
 
 </asp:Content>

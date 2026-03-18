@@ -174,3 +174,55 @@
 {
     color: #bbb;
 }
+
+/*Progress Page Styling*/
+
+.progress {
+    height: 25px;
+    border-radius: 10px;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.progress-bar {
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px;
+    color: #000;
+}
+
+/* Badge Card */
+.badge-card {
+    background: linear-gradient(145deg, #1c1f26, #111);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    width: 180px;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+    .badge-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(255, 193, 7, 0.3);
+        border-color: #ffc107;
+    }
+
+/* Badge Icon */
+.badge-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+/* Badge Title */
+.badge-title {
+    font-weight: bold;
+    color: #ffc107;
+    font-size: 16px;
+}
+
+/* Badge Description */
+.badge-desc {
+    font-size: 13px;
+    color: #bbb;
+    margin-top: 5px;
+}
